@@ -1,0 +1,30 @@
+<div class="card">
+  <div class="card-header">
+    <h2><%= t "admin.order.orders" %></h2>
+  </div>
+  <div class="card-body">
+    <table class = "table">
+      <thead>
+        <tr>
+          <th><%= t "admin.order.id" %></th>
+          <th><%= t "admin.order.date" %></th>
+          <th><%= t "admin.order.amount" %></th>
+          <th><%= t "admin.order.status" %></th>
+          <th><%= t "admin.order.action" %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% orders.each do |order| %>
+          <tr>
+            <td><%= order.id %></td>
+            <td><%= order.created_at.strftime(Settings.order.date_format) %></td>
+            <td><%= order.amount %></td>
+            <td><%= style_status(order.status) %></td>
+            <td><%= link_to icon("fa regular", "eye"), edit_admin_order_path(order) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+      <%== pagy_bootstrap_nav(@pagy) %>
+    </table>
+  </div>
+</div>

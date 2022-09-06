@@ -1,0 +1,11 @@
+<tr>
+  <td><%= user.name %></td>
+  <td class = "align_column">
+    <%= style_pending(count_pending(user.orders)) %>
+    <%= style_shipping(count_shipping(user.orders)) %>
+  </td>
+  <td><%= latest_comment(user.ratings.newest.first) %></td>
+  <td class = "align_column">
+    <%= link_to icon("fa regular", "eye"), admin_user_path(user) %>
+  </td>
+</tr>

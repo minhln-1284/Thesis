@@ -1,0 +1,30 @@
+<div class="card">
+  <div class="card-header">
+    <h2><%= t "admin.user.rating" %></h2>
+  </div>
+  <div class="card-body">
+    <table class = "table">
+      <thead>
+        <tr>
+          <th><%= t "admin.order.id" %></th>
+          <th><%= t "admin.order.date" %></th>
+          <th><%= t "admin.user.comment" %></th>
+          <th><%= t "admin.user.star" %></th>
+          <th><%= t "admin.user.product" %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% ratings.includes([:product]).each do |rating| %>
+          <tr>
+            <td><%= rating.id %></td>
+            <td><%= rating.created_at.strftime(Settings.order.date_format) %></td>
+            <td><%= rating.comment %></td>
+            <td><%= rating.star %></td>
+            <td><%= rating.product.name %></td>
+          </tr>
+        <% end %>
+      </tbody>
+      <%== pagy_bootstrap_nav(@pagy) %>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,8 @@
+<tr>
+  <td><%= order.id %></td>
+  <td><%= order.name %></td>
+  <td><%= order.created_at.strftime(Settings.order.date_format) %></td>
+  <td><%= order.amount %></td>
+  <td><%= style_status(order.status) %></td>
+  <td class = "td_custom"><%= link_to icon("fa regular", "eye"), edit_admin_order_path(order) %></td>
+</tr>
