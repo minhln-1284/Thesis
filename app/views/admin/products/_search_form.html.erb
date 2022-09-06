@@ -1,0 +1,17 @@
+<%= form_tag(admin_search_path, method: "get") do %>
+  <div class="wrapper">
+    <div class="first-third">
+      <%= link_to t("admin.product.new_product"), new_admin_product_path, class: "btn btn-outline-success", style: "min-width: 20%" %>
+    </div>
+    <div class="second-third">
+      <%= select_tag "filter" , options_for_select([
+                t("admin.product.filter.select") ,
+                t("admin.product.filter.newest") ,
+                t("admin.product.filter.uncate") ]), class: "form-select form-select" %>
+    </div>
+    <div class="third-third">
+      <%= submit_tag t("submit"), class: "btn btn-primary" %>
+    </div>
+  </div>
+</div>
+<% end %>

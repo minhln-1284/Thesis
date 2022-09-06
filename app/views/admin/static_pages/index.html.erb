@@ -1,0 +1,77 @@
+<div class="container-fluid px-4">
+  <h1 class="mt-4"><%= t "admin.static_pages.name"%></h1>
+  <ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active"><%= t "admin.static_pages.main"%></li>
+  </ol>
+  <div class="row">
+    <div class="col-xl-3 col-md-6">
+      <div class="card bg-primary text-white mb-4">
+        <div class="card-body"><%= t "admin.static_pages.product"%></div>
+          <div class="card-footer d-flex align-items-center justify-content-between">
+            <%= link_to t("admin.static_pages.view_details"), admin_products_path, class: "small text-white stretched-link"%>
+          <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+      <div class="card bg-warning text-white mb-4">
+        <div class="card-body"><%= t "admin.static_pages.category"%></div>
+          <div class="card-footer d-flex align-items-center justify-content-between">
+            <%= link_to t("admin.static_pages.view_details"), admin_categories_path, class: "small text-white stretched-link"%>
+          <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+      <div class="card bg-success text-white mb-4">
+        <div class="card-body"><%= t "admin.static_pages.order"%></div>
+          <div class="card-footer d-flex align-items-center justify-content-between">
+            <%= link_to t("admin.static_pages.view_details"), admin_orders_path, class: "small text-white stretched-link"%>
+          <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+      <div class="card bg-danger text-white mb-4">
+        <div class="card-body"><%= t "admin.static_pages.account" %></div>
+          <div class="card-footer d-flex align-items-center justify-content-between">
+            <%= link_to t("admin.static_pages.view_details"), admin_users_path, class: "small text-white stretched-link"%>
+          <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xl-6">
+      <div class="card mb-4">
+        <div class="card-header">
+          <i class="fas fa-chart-bar me-1"></i>
+          <%= t "admin.static_pages.chart1" %>
+        </div>
+        <div class="card-body">
+          <%= bar_chart bar_chart_product(@products) %>
+          </div>
+      </div>
+    </div>
+    <div class="col-xl-6">
+      <div class="card mb-4">
+        <div class="card-header">
+          <i class="fas fa-chart-pie me-1"></i>
+          <%= t "admin.sta tic_pages.chart2" %>
+        </div>
+        <div class="card-body">
+           <%= pie_chart pie_chart_order(@orders) %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card mb-4">
+    <div class="card-header">
+      <i class="fas fa-chart-column me-1"></i>
+      <%= t "admin.static_pages.chart3" %>
+    </div>
+    <div class="card-body">
+      <%= column_chart product_purchase_count(@order_details)%>
+    </div>
+  </div>
+</div>
