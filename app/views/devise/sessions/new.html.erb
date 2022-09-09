@@ -1,0 +1,32 @@
+<div class="container" style = "padding: 3%;">
+  <div class = "row align-items-start">
+    <div class="col">
+      <div class="card">
+        <div class="card-header">
+          <h2>Log in</h2>
+        </div>
+        <div class="card-body">
+          <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+            <%= f.label :Email %>
+            <div class="form-group">
+              <%= f.input_field :email, required: false, autofocus: true, input_html: { autocomplete: "email" } %>
+            </div>
+            <%= f.label :Password %>
+            <div class="form-group">
+              <%= f.input_field :password, required: false, input_html: { autocomplete: "current-password" } %>
+            </div>
+            <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+            <div class="form-group" style="padding-top: 3%;">
+              <%= f.button :submit, "Log in" , class: "btn btn-primary" %>
+            </div>
+          <% end %>
+          <br>
+          <%= render "devise/shared/links" %>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <%= image_tag "sign-up(1).png", height: "5%" %>
+    </div>
+  </div>
+</div>
