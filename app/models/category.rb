@@ -11,6 +11,10 @@ class Category < ApplicationRecord
 
   scope :newest, ->{order created_at: :desc}
 
+  scope :mens, ->{where category_id: 1}
+
+  scope :womans, ->{where category_id: 2}
+
   def create_path
     return if category_id.blank?
 

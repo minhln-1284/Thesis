@@ -1,0 +1,7 @@
+<tr style="text-align: center;">
+  <td><%= order.id %></td>
+  <td><%= order.created_at.strftime(Settings.order.date_format) %></td>
+  <td><%= number_to_currency order.amount %></td>
+  <td><%= style_status(order.status) %></td>
+  <td><%= link_to icon("fa regular", "eye"), order_detail_path(order.id) %><td>
+</tr>

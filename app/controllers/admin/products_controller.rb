@@ -1,6 +1,6 @@
 class Admin::ProductsController < Admin::BaseController
   before_action :find_product, only: %i(edit show update destroy)
-  before_action :get_categories, only: %i(new edit show index)
+  before_action :get_categories, only: %i(new edit show update index)
 
   def index
     filter_branch params[:filter]

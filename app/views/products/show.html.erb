@@ -1,0 +1,28 @@
+<!-- Product section-->
+
+  <div class="container px-4 px-lg-5 my-5">
+    <div class="row gx-4 gx-lg-5 align-items-center">
+      <div class="col-md-6">
+        <%= image_tag @product.product_images.first.image, class: "card-img-top mb-5 mb-md-0"%>
+      </div>
+      <div class="col-md-6">
+        <div class="mb-1"><%= @product.category.name %></div>
+        <h1 class="display-5 fw-bolder"><%= @product.name %></h1>
+        <div class="fs-5 mb-5">
+          <span><%= number_to_currency(@product.price) %></span>
+        </div>
+        <p class="lead"><%= @product.description %></p>
+        <div class="d-flex">
+          <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1"
+            style="max-width: 3rem" />
+          <button class="btn btn-outline-dark flex-shrink-0" type="button">
+            <i class="bi-cart-fill me-1"></i>
+            Add to cart
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- Related items section-->
+<!-- nếu thừa thời gian muốn làm thêm phần sản phẩm liên quan thì copy lại đoạn này từ desktop/startbootstrap-shop-item-gh-pages/index -->
+<!-- Footer-->

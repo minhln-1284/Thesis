@@ -1,0 +1,23 @@
+<% if @ods.present? %>
+<div class="container" style="padding: 2% 0%;">
+  <h2>Order <%= params[:id] %> details</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Price</th>
+        <th>Quantity</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render partial: "detail_order" %>
+    <tbody>
+  </table>
+  <h3>Total: <%= number_to_currency @order_total.amount, negative_format: "(%u%n)" %></h3>
+  <%= link_to "Back", orders_path, class: "btn btn-outline-dark" %>
+</div>
+<% else %>
+  <div class="mb-6">
+    <h2><%= t "static_pages.order_not_found" %></h2>
+  </div>
+<% end %>

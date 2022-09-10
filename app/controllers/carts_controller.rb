@@ -1,5 +1,5 @@
 class CartsController < ApplicationController
-  before_action :logged_in_user, only: %i(index create show)
+  before_action :authenticate_user!, only: %i(index create show)
   before_action :current_cart
   before_action :load_product
 
@@ -47,7 +47,7 @@ class CartsController < ApplicationController
 
   def check_quantily product
     @quantily = params[:quantily].to_i
-    @quantily > 1 && @quantily <= product.quantity_in_stock
+    @quantily >= 1 && @quantily <= product.quantity_in_stock
   end
 
   def add_cart product, quantily
