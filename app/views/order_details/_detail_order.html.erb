@@ -1,0 +1,13 @@
+<% @ods.each do |od| %>
+  <tbody>
+    <tr class="align-middle">
+      <th>
+      <%= od.product.name %>
+      <br>
+      <%= image_tag od.product.product_images.first&.image.variant(resize_to_fit: [100, 100]) if od.product.product_images.first&.image %>
+      </th>
+      <td><%= number_to_currency od.price %></td>
+      <td><%= od.quantity %></td>
+    </tr>
+  </tbody>
+<% end %>

@@ -1,0 +1,44 @@
+<div class="container">
+<div style = "padding: 3%;">
+  <div class="row align-items-center">
+    <div class="col-sm-9">
+      <div class="card">
+        <div style="padding: 3%;">
+          <h2>My cart</h2>
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Product</th>
+                <th scope="col">Price</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Sum</th>
+              </tr>
+            </thead>
+            <tbody>
+              <%= render partial: "product" , collection: @products %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-3">
+      <div class="card">
+        <div style="padding: 3%; text-align: center;">
+          <%= form_for @order do |f| %>
+            <%= f.hidden_field :amount, value: total_cart, class: "form-control" %>
+            <div class="total">
+              <span><%= t ".total" %></span>
+              <span class="order-price"> <%= number_to_currency total_cart, negative_format: "(%u%n)" %> </span>
+              <div class="button-container">
+                <button class="order btn btn-success" type="">Checkout</button>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

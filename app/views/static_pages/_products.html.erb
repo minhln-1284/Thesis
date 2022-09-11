@@ -1,0 +1,52 @@
+<% @categories.each do |cate| %>
+<section class="py-5", style="text-align: center;">
+  <h1><%= cate.name %></h1>
+  <% pagy_products(cate.id) %>
+  <% if @products.any? %>
+  <div class="container px-4 px-lg-5 mt-5">
+    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+      <% @products.each do |p| %>
+        <div class="col mb-5">
+          <div class="card h-100">
+            <!-- Product image
+            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." /> -->
+            <%= image_tag p.product_images.first.image, class: "card-img-top"%>
+            <!-- Product details-->
+            <div class="card-body p-4">
+              <div class="text-center">
+                <!-- Product name-->
+                <h5 class="fw-bolder"><%= link_to p.name, product_path(p), class: "link-minh-custom" %></h5>
+                <%= number_to_currency(p.price) %>
+              </div>
+            </div>
+            <!-- Product actions
+            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+              <div class="text-center">
+                <a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a>
+              </div>
+            </div> -->
+            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+              <%= form_with url: carts_path(id: p.id ), method: :post do |f| %>
+                <fieldset>
+                  <% if logged_in? %>
+                    <%= f.hidden_field :quantily, value: 1, max: 10, min: Settings.carts.min_quantily %>
+                    <input
+                      type="submit"
+                      name="submit"
+                      value="Add to cart"
+                      class="btn btn-outline-dark mt-auto"/>
+                  <% else %>
+                    <%= link_to "Add to cart", new_user_session_path, class: "btn btn-outline-dark" %>
+                  <% end %>
+                </fieldset>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <%== pagy_bootstrap_nav(@pagy) %>
+  </div>
+  <% end %>
+</section>
+<% end %>

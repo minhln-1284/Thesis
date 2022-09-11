@@ -3,7 +3,11 @@ class Admin::UsersController < Admin::BaseController
 
   def index
     @pagy, @users = pagy(User.newest, items: Settings.user.item)
-    @best = User.best_user(Order.most_order).first
+    if Order.Delivered.any?
+      @best = User.best_user(Order.most_order).first
+    else
+      @best = "No one"
+    end
   end
 
   def show

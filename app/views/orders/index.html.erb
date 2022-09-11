@@ -1,0 +1,25 @@
+<div class = "container" style="padding: 2% 0%;">
+  <div class="card">
+    <div class="card-header">
+      <h1>My orders</h1>
+    </div>
+    <div class="card-body">
+      <table class = "table table-striped">
+        <thead style="text-align: center;">
+          <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>Total</th>
+            <th>Status</th>
+            <th>Details</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <%= render @orders %>
+        </tbody>
+      </table>
+      <%== pagy_bootstrap_nav(@pagy) %>
+    </div>
+  </div>
+</div>

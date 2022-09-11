@@ -8,7 +8,6 @@ class User < ApplicationRecord
   has_many :orders, dependent: :destroy
   has_many :messages, dependent: :destroy
 
-  VALID_EMAIL_REGEX = Settings.user.valid_email_regex
   USER_ATTRIBUTES = %i(name email phone address password
                        password_confirmation).freeze
   USER_UPDATE = %i(name phone address password

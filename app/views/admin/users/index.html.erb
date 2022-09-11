@@ -8,27 +8,33 @@
       <div class="card-body">
         <div class="row">
           <div class="col-sm-6">
-            <div class="card text-white bg-danger mb-3">
-              <%= render "user_card", user: @best %>
-            </div>
+              <% if @best == "No one" %>
+                <%= @best %>
+              <% else %>
+                <div class="card text-white bg-danger mb-3">
+                  <%= render "user_card", user: @best %>
+                </div>
+              <% end %>
           </div>
-          <div class="col-sm-6">
-            <div class="card text-white bg-success mb-3">
-              <div class="card-body">
-                <h5 class="card-title">
-                  <%= t "admin.user.sum_order" %>
-                    <%= @best.orders.count %>
-                </h5>
-                <p class="card-text">
-                  <%= count_delivered(@best.orders) %>
-                </p>
-                <p>
-                  <%= count_shipping(@best.orders) %>
-                </p>
-                <%= link_to icon("fa regular", "eye" ), admin_user_path(@best), style: "color: white" %>
+          <% if @best != "No one" %>
+            <div class="col-sm-6">
+              <div class="card text-white bg-success mb-3">
+                <div class="card-body">
+                  <h5 class="card-title">
+                    <%= t "admin.user.sum_order" %>
+                      <%= @best.orders.count %>
+                  </h5>
+                  <p class="card-text">
+                    <%= count_delivered(@best.orders) %>
+                  </p>
+                  <p>
+                    <%= count_shipping(@best.orders) %>
+                  </p>
+                  <%= link_to icon("fa regular", "eye" ), admin_user_path(@best), style: "color: white" %>
+                </div>
               </div>
             </div>
-          </div>
+          <% end %>
         </div>
       </div>
     </div>

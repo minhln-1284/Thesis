@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: %i(update)
+  before_action :authenticate_user!, only: %i(update)
   before_action :find_user, except: %i(new create)
   before_action :correct_user, only: %i(update)
 

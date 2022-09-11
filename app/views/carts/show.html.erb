@@ -1,0 +1,45 @@
+<div class="container">
+<div style = "padding: 3%;">
+  <div class="row align-items-center">
+    <div class="col-sm-9">
+      <div class="card">
+        <div style="padding: 3%;">
+          <h2>My cart</h2>
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Product</th>
+                <th scope="col">Price</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Sum</th>
+              </tr>
+            </thead>
+            <tbody>
+              <%= render partial: "product" , collection: @products %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <% if current_cart.values.count >= 1 %>
+      <div class="col-sm-3">
+        <div class="card">
+          <div style="padding: 3%; text-align: center;">
+            <h5>Number of items: <%= current_cart.values.sum %></h5>
+            <h5 class="text-uppercase">Total price</h5>
+            <h5>
+              <%= number_to_currency total_cart, negative_format: "(%u%n)" %>
+            </h5>
+              <%= link_to new_order_path do %>
+                <button id="order" type="button" class="btn btn-dark btn-block btn-lg">
+                  <%= t ".register" %>
+                </button>
+              <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+</div>

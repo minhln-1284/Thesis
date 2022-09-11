@@ -8,6 +8,8 @@ category:
 order:
   item: 15
   date_format: "%m/%d/%Y | %I:%M %p"
+product:
+  item: 8
 user:
   email_length: !ruby/range 6..255
   name_min: 3
