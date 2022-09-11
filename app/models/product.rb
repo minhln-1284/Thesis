@@ -9,9 +9,7 @@ class Product < ApplicationRecord
 
   delegate :name, to: :category, prefix: true
 
-  validates :name, :price, :quantity_in_stock, presence: true
-
-  validates :name, uniqueness: true
+  validates :price, :quantity_in_stock, presence: true
 
   scope :by_name, (lambda do |name|
                      where("name LIKE (?)", "%#{name}%") if name.present?
