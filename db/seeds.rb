@@ -69,7 +69,6 @@ count = 1
   pants_woman.save!
   product_image_pw = pants_woman.product_images.create!
   product_image_pw.image.attach(io: File.open("app/assets/images/DatasetProductImages/Womans/Pants/#{count}.jpg"), filename: "#{count}.jpg")
-
   count += 1
 end
 
@@ -131,4 +130,32 @@ count = 1
   product_image_pw.image.attach(io: File.open("app/assets/images/DatasetProductImages/Womans/Dresses & Skirts/#{count}.jpg"), filename: "#{count}.jpg")
 
   count += 1
+end
+
+users = User.all
+
+users.each do |user|
+  rand(6..12).times do
+    status = rand(0..4)
+    user.orders.create!(status: status)
+  end
+end
+
+orders = Order.all
+orders.each do |order|
+  arr = (1..25).to_a
+  rand(3..6).times do
+    product_id = arr.sample
+    quantity = rand(1..3)
+    od = order.order_details.new(product_id: product_id, quantity: quantity)
+    od.save!
+    price = od.product.price
+    od.update(price: price)
+    arr.delete(product_id)
+  end
+  amount = 0
+  order.order_details.each do |od|
+    amount += od.price * od.quantity
+  end
+  order.update(amount: amount)
 end
