@@ -11,6 +11,8 @@ class Product < ApplicationRecord
 
   validates :price, :quantity_in_stock, presence: true
 
+  scope :mens, ->{where("category_id IN (?)", [3,5,7,9])}
+
   scope :by_name, (lambda do |name|
                      where("name LIKE (?)", "%#{name}%") if name.present?
                    end)
@@ -18,6 +20,12 @@ class Product < ApplicationRecord
   scope :find_category_id, ->(param){where category_id: param}
   scope :order_by_created_at, ->(param){order(created_at: param)}
   scope :newest, ->{order created_at: :desc}
+  scope :oldest, ->{order created_at: :asc}
   scope :by_ids, ->(ids){where id: ids}
   scope :uncategorized, ->{where category_id: nil}
+
+  def find_root_category parent_path
+    arr = parent_path.split("/")
+    return arr.second
+  end
 end

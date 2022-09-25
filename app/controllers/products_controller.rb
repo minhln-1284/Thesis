@@ -1,7 +1,11 @@
 class ProductsController < ApplicationController
   def index
-    @products = Product.newest
-    @categories = Category.newest
+  end
+
+  def mens
+    @search = Product.mens.oldest.ransack(params[:q])
+    @pagy, @products = pagy @search.result
+    # @pagy, @products = pagy Product.mens.oldest
   end
 
   def show
@@ -17,5 +21,9 @@ class ProductsController < ApplicationController
   def result
     @name = params[:name]
     @pagy, @products = pagy Product.by_name params[:name]
+  end
+
+  def all_product category_id
+
   end
 end

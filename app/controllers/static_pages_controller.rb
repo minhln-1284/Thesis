@@ -14,7 +14,14 @@ class StaticPagesController < ApplicationController
   end
 
   def mens
-    @categories = Category.mens
+    @category = Category.find_by(id: 1)
+    product_list = []
+    @category.categories.each do |cate|
+      cate.products.each do |product|
+        product_list << product
+      end
+    end
+    @pagy, @products = pagy product_list
   end
 
   def womans
