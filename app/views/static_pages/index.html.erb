@@ -18,7 +18,7 @@
       </div>
     </div>
   </header>
-  
+
   <!-- Section-->
   <section class="py-5", style="text-align: center;">
     <h1>Best Selling</h1>
@@ -60,6 +60,9 @@
       </div>
     </div>
   </section>
+  <% if !@recommendations.nil? %>
+    <%= render partial: "recommend",  recommendations: @recommendations %>
+  <% end %>
 </body>
 
 </html>
