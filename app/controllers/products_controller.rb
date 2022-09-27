@@ -3,9 +3,13 @@ class ProductsController < ApplicationController
   end
 
   def mens
-    @search = Product.mens.oldest.ransack(params[:q])
+    @search = Product.mens.ransack(params[:q])
     @pagy, @products = pagy @search.result
-    # @pagy, @products = pagy Product.mens.oldest
+  end
+
+  def womans
+    @search = Product.womans.ransack(params[:q])
+    @pagy, @products = pagy @search.result
   end
 
   def show

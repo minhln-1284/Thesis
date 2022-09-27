@@ -3,22 +3,25 @@
     <div class="col-sm-2">
       <div class="w3-leftbar w3-border-blue">
         <div class="input-group mb-3 container">
-          <%= search_form_for @search, url: mens_path, html: { method: :get } do |f| %>
+          <%= search_form_for @search, url: womans_path, html: { method: :get } do |f| %>
             <%= f.search_field :name_cont, class: "form-control" %>
             <div>
               <h5>Category</h5>
             </div>
             <div class="mb-1">
-              <%= link_to "Shirt" , mens_path(q: {"name_cont"=>"", "category_name_cont"=>"shirt", "category_eq"=>""}), class: "btn btn-outline-dark" %>
+              <%= link_to "Shirt" , womans_path(q: {"name_cont"=>"", "category_name_cont"=>"shirt", "category_eq"=>""}), class: "btn btn-outline-dark" %>
             </div>
             <div class="mb-1">
-              <%= link_to "Pants" , mens_path(q: {"name_cont"=>"", "category_name_cont"=>"pants", "category_eq"=>""}), class: "btn btn-outline-dark" %>
+              <%= link_to "Pants" , womans_path(q: {"name_cont"=>"", "category_name_cont"=>"pants", "category_eq"=>""}), class: "btn btn-outline-dark" %>
             </div>
             <div class="mb-1">
-              <%= link_to "Shoes" , mens_path(q: {"name_cont"=>"", "category_name_cont"=>"shoes", "category_eq"=>""}), class: "btn btn-outline-dark" %>
+              <%= link_to "Shoes" , womans_path(q: {"name_cont"=>"", "category_name_cont"=>"shoes", "category_eq"=>""}), class: "btn btn-outline-dark" %>
             </div>
             <div class="mb-1">
-              <%= link_to "Accessories" , mens_path(q: {"name_cont"=>"", "category_name_cont"=>"accessories", "category_eq"=>""}), class: "btn btn-outline-dark" %>
+              <%= link_to "Accessories" , womans_path(q: {"name_cont"=>"", "category_name_cont"=>"accessories", "category_eq"=>""}), class: "btn btn-outline-dark" %>
+            </div>
+            <div class="mb-1">
+              <%= link_to "Dresses & Skirts" , womans_path(q: {"name_cont"=>"", "category_name_cont"=>"dresses", "category_eq"=>""}), class: "btn btn-outline-dark" %>
             </div>
             <div>
               <h5>Price range</h5>

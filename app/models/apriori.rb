@@ -4,7 +4,7 @@ class Apriori < ApplicationRecord
     order = Order.all
     h1 = {}
     order.each do |o|
-      list_item = []
+    list_item = []
       order_detail.each do |od|
         if od.order_id == o.id
           list_item << (od.product.id)

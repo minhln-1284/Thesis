@@ -15,6 +15,10 @@ class Category < ApplicationRecord
 
   scope :womans, ->{where category_id: 2}
 
+  ransacker :category_id, type: :BIGINT do
+    Arel.sql("BIGINT(category_id)")
+  end
+
   def create_path
     return if category_id.blank?
 

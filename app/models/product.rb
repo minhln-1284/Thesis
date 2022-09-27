@@ -11,7 +11,9 @@ class Product < ApplicationRecord
 
   validates :price, :quantity_in_stock, presence: true
 
-  scope :mens, ->{where("category_id IN (?)", [3,5,7,9])}
+  scope :mens, ->{where("products.category_id IN (?)", [3,5,7,9])}
+
+  scope :womans, ->{where("products.category_id IN (?)", [4,6,8,10,11])}
 
   scope :by_name, (lambda do |name|
                      where("name LIKE (?)", "%#{name}%") if name.present?
