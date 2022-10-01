@@ -1,8 +1,9 @@
 class StaticPagesController < ApplicationController
   def index
+    @banners = Banner.all
     @products = Product.all.limit(4)
     if !current_user.nil?
-      if !current_user.recommend.empty?
+      if !current_user.recommend.nil?
         arr = current_user.recommend.split("-")
         @recommendations = []
         arr.each do |id|
@@ -11,6 +12,7 @@ class StaticPagesController < ApplicationController
         end
       end
     end
+    
   end
 
   def mens

@@ -11,6 +11,9 @@ count = 1
   user.save!
   count += 1
 end
+User.create(email: "shinra241@gmail.com", password: "foobar",
+            password_confirmation: "foobar", phone: Faker::PhoneNumber.cell_phone,
+            name: Faker::Name.first_name, role: 0)
 
 men = Category.create!(name: "Mens")
 woman = Category.create!(name: "Womans")
@@ -33,7 +36,8 @@ count = 1
 10.times do
   men = Category.find_by(id: 3)
   shirt_men = men.products.new
-  shirt_men.price = 1000000
+  shirt_men.name = "Shirt-SM#{count}"
+  shirt_men.price = rand(1000000..5000000)
   shirt_men.quantity_in_stock = 500
   shirt_men.save!
   product_image_sm = shirt_men.product_images.create!
@@ -41,7 +45,8 @@ count = 1
 
   woman = Category.find_by(id: 4)
   shirt_woman = woman.products.new
-  shirt_woman.price = 1000000
+  shirt_woman.name = "Shirt-SW#{count}"
+  shirt_woman.price = rand(1000000..5000000)
   shirt_woman.quantity_in_stock = 500
   shirt_woman.save!
   product_image_sw = shirt_woman.product_images.create!
@@ -55,7 +60,7 @@ count = 1
   men = Category.find_by(id: 5)
   pants_men = men.products.new
   pants_men.name = "Pants-P#{count}"
-  pants_men.price = 1000000
+  pants_men.price = rand(1000000..5000000)
   pants_men.quantity_in_stock = 500
   pants_men.save!
   product_image_pm = pants_men.product_images.create!
@@ -64,7 +69,7 @@ count = 1
   woman = Category.find_by(id: 6)
   pants_woman = woman.products.new
   pants_woman.name = "Pants-P#{count}"
-  pants_woman.price = 1000000
+  pants_woman.price = rand(1000000..5000000)
   pants_woman.quantity_in_stock = 500
   pants_woman.save!
   product_image_pw = pants_woman.product_images.create!
@@ -77,7 +82,7 @@ count = 1
   men = Category.find_by(id: 7)
   shoes_men = men.products.new
   shoes_men.name = "Shoes-S#{count}"
-  shoes_men.price = 1000000
+  shoes_men.price = rand(1000000..5000000)
   shoes_men.quantity_in_stock = 500
   shoes_men.save!
   product_image_pm = shoes_men.product_images.create!
@@ -86,7 +91,7 @@ count = 1
   woman = Category.find_by(id: 8)
   shoes_woman = woman.products.new
   shoes_woman.name = "Shoes-S#{count}"
-  shoes_woman.price = 1000000
+  shoes_woman.price = rand(1000000..5000000)
   shoes_woman.quantity_in_stock = 500
   shoes_woman.save!
   product_image_pw = shoes_woman.product_images.create!
@@ -100,7 +105,7 @@ count = 1
   men = Category.find_by(id: 9)
   accessories_men = men.products.new
   accessories_men.name = "Accessories-A#{count}"
-  accessories_men.price = 1000000
+  accessories_men.price = rand(1000000..5000000)
   accessories_men.quantity_in_stock = 500
   accessories_men.save!
   product_image_pm = accessories_men.product_images.create!
@@ -109,7 +114,7 @@ count = 1
   woman = Category.find_by(id: 10)
   accessories_woman = woman.products.new
   accessories_woman.name = "Accessories-A#{count}"
-  accessories_woman.price = 1000000
+  accessories_woman.price = rand(1000000..5000000)
   accessories_woman.quantity_in_stock = 500
   accessories_woman.save!
   product_image_pw = accessories_woman.product_images.create!
@@ -123,7 +128,7 @@ count = 1
   woman = Category.find_by(id: 11)
   dress_woman = woman.products.new
   dress_woman.name = "Dress-D#{count}"
-  dress_woman.price = 1000000
+  dress_woman.price = rand(1000000..5000000)
   dress_woman.quantity_in_stock = 500
   dress_woman.save!
   product_image_pw = dress_woman.product_images.create!

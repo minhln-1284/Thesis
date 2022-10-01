@@ -6,9 +6,9 @@ class Admin::BaseController < ApplicationController
 
   private
   def logged_in_admin
-    return if admin_logged_in?
-
-    flash[:danger] = t("carts.show.please_login_admin")
-    redirect_to root_path
+    if !current_user&.Admin?
+      flash[:danger] = t("carts.show.please_login_admin")
+      redirect_to root_path
+    end
   end
 end

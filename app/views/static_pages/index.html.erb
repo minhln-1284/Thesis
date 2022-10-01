@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+
 
 <head>
   <meta charset="utf-8" />
@@ -9,20 +8,33 @@
 </head>
 
 <body>
-  <!-- Header-->
-<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <%= image_tag "banner1.jpg", class: "d-block w-100"%>
+  <!-- Caroussel-->
+<% if @banners.any? %>
+  <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <% @banners.includes(image_attachment: :blob).each do |banner| %>
+        <% if banner == @banners.first %>
+          <div class="carousel-item active">
+            <%= image_tag((banner.image.variant(resize_to_fill: [1680, 700])), class: "d-block w-100") if banner.image.present?%>
+          </div>
+        <% else %>
+          <div class="carousel-item">
+            <%= image_tag((banner.image.variant(resize_to_fill: [1680, 700])), class: "d-block w-100") if banner.image.present?%>
+          </div>
+        <% end %>
+      <% end %>
     </div>
-    <div class="carousel-item">
-      <%= image_tag "discount_banner.jpg", class: "d-block w-100"%>
-    </div>
-    <div class="carousel-item">
-      <%= image_tag "banner3.jpg", class: "d-block w-100"%>
-    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
   </div>
-</div>
+<% end %>
+
 
   <!-- Section-->
   <section class="py-5", style="text-align: center;">
@@ -35,14 +47,14 @@
             <div class="card h-100">
               <!-- Product image-->
 
-              <%= image_tag p.product_images.first.image, class: "card-img-top" %>
+              <%= image_tag p.product_images.first.image.variant(resize_to_fill: [200, 200]), class: "card-img-top" %>
 
               <!-- Product details-->
               <div class="card-body p-4">
                 <div class="text-center">
                   <!-- Product name-->
-                  <h5 class="fw-bolder"><%= p.name %></h5>
-                  <%= number_to_currency(p.price) %>
+                  <h5 class="fw-bolder"><%= link_to p.name, product_path(p), style:"text-decoration: none; color: black;" %></h5>
+                  <%= number_to_currency(p.price, locale: :vi) %>
                 </div>
               </div>
               <!-- Product actions-->
@@ -120,9 +132,6 @@
     </div>
   </div>
 </body>
-
-
-</html>
 
 
 <script>

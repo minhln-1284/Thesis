@@ -376,7 +376,7 @@ DEPENDENCIES
   factory_bot_rails
   faker
   figaro
-  font-awesome-sass (~> 6.1.2)
+  font-awesome-sass
   groupdate
   htmlbeautifier
   image_processing (~> 1.2)

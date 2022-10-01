@@ -1,5 +1,5 @@
 source "https://rubygems.org"
-git_source(:github){|repo| "https://github.com/#{repo}.git"}
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "2.7.1"
 
@@ -10,9 +10,8 @@ gem "cocoon"
 gem "config"
 gem "faker"
 gem "figaro"
-gem "font-awesome-sass", "~> 6.1.2"
+gem "font-awesome-sass"
 gem "groupdate"
-gem "htmlbeautifier"
 gem "image_processing", "~> 1.2"
 gem "jbuilder", "~> 2.7"
 gem "mysql2"
@@ -31,6 +30,7 @@ gem "simplecov"
 gem "whenever"
 gem "devise"
 gem "ransack"
+gem "htmlbeautifier"
 
 group :development, :test do
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]

@@ -64,13 +64,13 @@
               <div class="zoom">
                 <div class="card h-100">
                   <!-- Product image-->
-                  <%= image_tag p.product_images.first.image, class: "card-img-top" %>
+                  <%= image_tag p.product_images.first.image.variant(resize_to_fill: [200, 200]), class: "card-img-top" %>
                   <!-- Product details-->
                   <div class="card-body p-4">
                     <div class="text-center">
                       <!-- Product name-->
                       <h5 class="fw-bolder">
-                        <%= p.name %>
+                        <%= link_to p.name, product_path(p), style: "text-decoration: none; color: black;" %>
                       </h5>
                       <%= number_to_currency(p.price) %>
                     </div>

@@ -7,8 +7,6 @@
             <strong><%= t("admin.product.image") + product.product_images.find_index(proimg).to_s %></strong>
             <%= image_tag((proimg.image), class: "d-block w-100") if proimg.image.present?%>
           </div>
-        <% elsif proimg == product.product_images.last %>
-          <% break %>
         <% else %>
           <div class="carousel-item">
             <strong><%= t("admin.product.image") + product.product_images.find_index(proimg).to_s %></strong>

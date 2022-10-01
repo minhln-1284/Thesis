@@ -4,10 +4,14 @@ class ApplicationController < ActionController::Base
   include CartsHelper
   protect_from_forgery with: :exception
   before_action :set_locale
-  before_action :current_cart, :load_product_in_cart
+  before_action :current_cart, :load_product_in_cart, :search_bar
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   private
+  def search_bar
+    @q = Product.ransack(params[:q])
+  end
+
   def configure_permitted_parameters
     added_attrs = %i(name phone)
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :phone])

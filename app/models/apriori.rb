@@ -4,7 +4,7 @@ class Apriori < ApplicationRecord
     order = Order.all
     h1 = {}
     order.each do |o|
-    list_item = []
+      list_item = []
       order_detail.each do |od|
         if od.order_id == o.id
           list_item << (od.product.id)
@@ -79,6 +79,13 @@ class Apriori < ApplicationRecord
         result = temp
         k += 1
       end
+    end
+    if result.any?
+      items = ""
+      result.each do |product|
+        items = items + product.to_s + "-"
+      end
+      Recommended.create!(associations: items)
     end
     return result
   end

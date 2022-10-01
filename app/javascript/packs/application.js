@@ -10,6 +10,7 @@ import 'channels'
 require('jquery')
 require('js/bootstrap.bundle.min')
 import "../stylesheets/application"
+import "bootstrap"
 
 Rails.start()
 Turbolinks.start()
