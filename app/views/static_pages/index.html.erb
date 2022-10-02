@@ -61,16 +61,16 @@
               <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                 <%= form_with url: carts_path(id: p.id ), method: :post do |f| %>
                   <fieldset>
-                    <% if logged_in? %>
+                    <%# if logged_in? %>
                       <%= f.hidden_field :quantily, value: 1, max: 10, min: Settings.carts.min_quantily %>
                       <input
                         type="submit"
                         name="submit"
                         value="Add to cart"
                         class="btn btn-outline-dark mt-auto"/>
-                    <% else %>
-                      <%= link_to "Add to cart", new_user_session_path, class: "btn btn-outline-dark" %>
-                    <% end %>
+                    <%# else %>
+                      <%#= link_to "Add to cart", new_user_session_path, class: "btn btn-outline-dark" %>
+                    <%# end %>
                   </fieldset>
                 <% end %>
               </div>

@@ -1,5 +1,5 @@
 class CartsController < ApplicationController
-  before_action :authenticate_user!, only: %i(index create show)
+  #before_action :authenticate_user!, only: %i(index create show)
   before_action :current_cart
   before_action :load_product
 
@@ -13,7 +13,7 @@ class CartsController < ApplicationController
     else
       flash[:danger] = t ".over_than_stock"
     end
-    redirect_to root_path
+    redirect_to request.referrer
   end
 
   def update
@@ -23,7 +23,7 @@ class CartsController < ApplicationController
     else
       flash[:danger] = t ".fail_update"
     end
-    redirect_to cart_path current_user.id
+    redirect_to request.referrer
   end
 
   def destroy

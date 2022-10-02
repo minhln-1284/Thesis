@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :authenticate_user!, only: %i(new create)
+  #before_action :authenticate_user!, only: %i(new create)
   before_action :current_cart, :load_product_in_cart
   before_action :check_product_quantity, only: %i(new create)
 
@@ -8,12 +8,24 @@ class OrdersController < ApplicationController
   end
 
   def new
-    @order = current_user.orders.build
+    binding.pry
+    if current_user.nil?
+      @order = Order.new
+    else
+      @order = current_user.orders.build
+    end
     @product = Product.find_by id: params[:id]
   end
 
   def create
-    @order = current_user.orders.new order_params
+    binding.pry
+    if current_user.nil?
+      @order = Order.new order_params
+      @order.user_id = 1
+    else
+      @order = current_user.orders.new order_params
+    end
+    #@order = current_user.orders.new order_params
     if @order.valid?
       create_transaction
     else
@@ -44,6 +56,7 @@ class OrdersController < ApplicationController
 
   private
   def order_params
+    binding.pry
     params.require(:order).permit Order::ORDER_ATTRS
   end
 
@@ -59,6 +72,7 @@ class OrdersController < ApplicationController
   end
 
   def create_transaction
+    binding.pry
     ActiveRecord::Base.transaction do
       @order.save!
       create_order_detail
