@@ -1,24 +1,14 @@
-
 <tr>
   <th class="align-middle">
-  <strong><%= product.name %></strong>
-  <br>
-  <%= image_tag product.product_images.first&.image.variant(resize_to_fit: [100, 100]) if product.product_images.first&.image %>
+    <strong><%= product.name %></strong>
+    <br>
+    <%= image_tag product.product_images.first&.image.variant(resize_to_fit: [100, 100]) if product.product_images.first&.image %>
   </th>
   <td class="align-middle"><%= number_to_currency product.price, negative_format: "(%u%n)" %></td>
   <td class="align-middle">
-    <%= form_with url: cart_path(id: product.id), method: :put, remote: true do |f| %>
-    <%= f.number_field :quantily, value: current_cart["#{product.id}"],
-      max: product.quantity_in_stock, min: "1", class: "form-control form-control-sm ", id: "form1" %>
-    <div style="padding: 3%;">
-      <%= f.button type: :submit, class: "btn btn-outline-dark" do %>
-        <%= "Update"%>
-      <% end %>
-      <%= link_to cart_path(id: product.id), method: :delete, class: "btn btn-outline-dark",
-      data: {confirm: t(".confirm_delete")} do %>
-          <%= "Delete" %>
-        <% end %>
-      <% end %>
+    <%= current_cart["#{product.id}"] %>
   </td>
-  <td class="align-middle"><div class="subtotal"><%= number_to_currency total_price_product(product.id), negative_format: "(%u%n)" %></div></td>
+  <td class="align-middle">
+    <div class="subtotal"><%= number_to_currency total_price_product(product.id), negative_format: "(%u%n)" %></div>
+  </td>
 </tr>

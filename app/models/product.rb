@@ -9,9 +9,11 @@ class Product < ApplicationRecord
 
   delegate :name, to: :category, prefix: true
 
-  validates :name, :price, :quantity_in_stock, presence: true
+  validates :price, :quantity_in_stock, presence: true
 
-  validates :name, uniqueness: true
+  scope :mens, ->{where("products.category_id IN (?)", [3,5,7,9])}
+
+  scope :womans, ->{where("products.category_id IN (?)", [4,6,8,10,11])}
 
   scope :by_name, (lambda do |name|
                      where("name LIKE (?)", "%#{name}%") if name.present?
@@ -20,6 +22,12 @@ class Product < ApplicationRecord
   scope :find_category_id, ->(param){where category_id: param}
   scope :order_by_created_at, ->(param){order(created_at: param)}
   scope :newest, ->{order created_at: :desc}
+  scope :oldest, ->{order created_at: :asc}
   scope :by_ids, ->(ids){where id: ids}
   scope :uncategorized, ->{where category_id: nil}
+
+  def find_root_category parent_path
+    arr = parent_path.split("/")
+    return arr.second
+  end
 end

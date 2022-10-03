@@ -1,0 +1,11 @@
+<div class="category-index-padding">
+  <div class = "container">
+    <div class="card">
+      <div class="card-body">
+        <%= render "form", product: @banner %>
+        <%= link_to t("admin.product.show"), admin_banner_path(@banner), class: "btn btn-outline-primary" %>
+        <%= link_to t("admin.product.back"), admin_banners_path, class: "btn btn-outline-primary" %>
+      </div>
+    </div>
+  </div>
+</div>

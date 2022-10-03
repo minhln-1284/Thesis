@@ -1,0 +1,25 @@
+<div class="category-index-padding">
+  <div class="container">
+    <div class="card mb-3">
+      <div class="card-header" style="background: none">
+        <h2>
+          <%= "Banner id: " + @banner.id.to_s %>
+        </h2>
+      </div>
+      <div class="card-body">
+        <h3><%= "Content: " %></h3>
+        <p class="card-text">
+          <%= @banner.content %>
+        </p>
+        <br>
+        <div>
+          <% if @banner.image.present? %>
+            <%= image_tag(@banner.image) %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <%= link_to t("admin.product.edit"), edit_admin_banner_path(@banner), class: "btn btn-primary"%>
+    <%= link_to t("admin.product.back"), admin_banners_path, class: "btn btn-primary" %>
+  </div>
+</div>

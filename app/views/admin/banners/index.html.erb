@@ -1,0 +1,26 @@
+<div class="category-index-padding">
+  <div class = "container">
+    <div class="card">
+      <div class="card-header">
+        <h1><%= "Banners" %></h1>
+      </div>
+      <br>
+      <div class="card-body">
+        <%= link_to "New banner", new_admin_banner_path, class: "btn btn-outline-success"%>
+        <table class = "table table-striped">
+          <thead>
+            <tr>
+              <th><%= "ID" %></th>
+              <th><%= "Content" %></th>
+              <th><%= t "admin.category.content" %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <%= render @banners %>
+          </tbody>
+        </table>
+        <%== pagy_bootstrap_nav(@pagy) %>
+      </div>
+    </div>
+  </div>
+</div>

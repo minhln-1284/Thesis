@@ -1,0 +1,8 @@
+<tr>
+  <td><%= banner.id.to_s %></td>
+  <td><%= banner.content %></td>
+  <td><%= link_to icon("fa regular", "eye"), admin_banner_path(banner) %>
+  <%= link_to icon("fa regular", "pen-to-square"), edit_admin_banner_path(banner), class: "td_custom" %>
+  <%= link_to icon("fa regular", "trash"), admin_banner_path(banner), method: :delete, data: { confirm: t("admin.product.you_sure") } %>
+  </td>
+</tr>

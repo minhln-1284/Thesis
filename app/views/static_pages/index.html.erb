@@ -1,39 +1,60 @@
-<!DOCTYPE html>
-<html lang="en">
+
 
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta name="description" content="" />
   <meta name="author" content="" />
-  <title>Shop Homepage - Start Bootstrap Template</title>
 </head>
 
 <body>
-  <!-- Header-->
-  <header class="bg-dark py-5", id="minh_custom_background_index">
-    <div class="container px-4 px-lg-5 my-5">
-      <div class="text-center text-white">
-        <h1 class="display-4 fw-bolder">Shop in style</h1>
-      </div>
+  <!-- Caroussel-->
+<% if @banners.any? %>
+  <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <% @banners.includes(image_attachment: :blob).each do |banner| %>
+        <% if banner == @banners.first %>
+          <div class="carousel-item active">
+            <%= image_tag((banner.image.variant(resize_to_fill: [1680, 700])), class: "d-block w-100") if banner.image.present?%>
+          </div>
+        <% else %>
+          <div class="carousel-item">
+            <%= image_tag((banner.image.variant(resize_to_fill: [1680, 700])), class: "d-block w-100") if banner.image.present?%>
+          </div>
+        <% end %>
+      <% end %>
     </div>
-  </header>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+<% end %>
+
+
   <!-- Section-->
   <section class="py-5", style="text-align: center;">
-    <h1>Best Selling</h1>
+    <h1>Best Sellings</h1>
     <div class="container px-4 px-lg-5 mt-5">
       <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
         <% @products.each do |p|%>
           <div class="col mb-5">
+          <div class="zoom">
             <div class="card h-100">
               <!-- Product image-->
-              <%= image_tag p.product_images.first.image, class: "card-img-top" %>
+
+              <%= image_tag p.product_images.first.image.variant(resize_to_fill: [200, 200]), class: "card-img-top" %>
+
               <!-- Product details-->
               <div class="card-body p-4">
                 <div class="text-center">
                   <!-- Product name-->
-                  <h5 class="fw-bolder"><%= p.name %></h5>
-                  <%= number_to_currency(p.price) %>
+                  <h5 class="fw-bolder"><%= link_to p.name, product_path(p), style:"text-decoration: none; color: black;" %></h5>
+                  <%= number_to_currency(p.price, locale: :vi) %>
                 </div>
               </div>
               <!-- Product actions-->
@@ -54,11 +75,90 @@
                 <% end %>
               </div>
             </div>
+            </div>
           </div>
           <% end %>
       </div>
     </div>
   </section>
+  <% if !@recommendations.nil? %>
+    <%= render partial: "recommend",  recommendations: @recommendations %>
+  <% end %>
+  <!-- For moms -->
+  <div style="padding: 0% 2% 6% 2%;">
+    <div class="row center"  >
+      <div class="col">
+        <section class="tag"><h1>Clothings for moms</h1></section>
+        <section class="tag"><p><%= Faker::Lorem.sentence(word_count: 80) %></p></section>
+        <div class="tag">
+          <%= link_to "Explore now", womans_path, class: "btn btn-outline-dark" %>
+        </div>
+      </div>
+      <div class="col tag">
+        <%= image_tag "moms_shopping.jpg", style: "width: 550px;" %>
+      </div>
+    </div>
+  </div>
+
+  <!-- For dads -->
+  <div style="padding-left: 2%; padding-right: 2%">
+    <div class="row center"  >
+      <div class="col tag" >
+        <%= image_tag "dads_shopping.jpg", style: "width: 550px;" %>
+      </div>
+      <div class="col">
+        <section class="tag"><h1>Clothings for dads</h1></section>
+        <section class="tag"><p><%= Faker::Lorem.sentence(word_count: 80) %></p></section>
+        <div class="tag">
+          <%= link_to "Explore now", mens_path, class: "btn btn-outline-dark" %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- For kids -->
+  <div style="padding: 6% 2% 6% 2%;">
+    <div class="row center"  >
+      <div class="col">
+        <section class="tag"><h1>Clothings for kids</h1></section>
+        <section class="tag"><p><%= Faker::Lorem.sentence(word_count: 80) %></p></section>
+        <div class="tag">
+          <%= link_to "Explore now", "#", class: "btn btn-outline-dark" %>
+        </div>
+      </div>
+      <div class="col tag">
+        <%= image_tag "kids_shopping.jpg", style: "width: 550px;" %>
+      </div>
+    </div>
+  </div>
 </body>
 
-</html>
+
+<script>
+$(document).on("scroll", function() {
+  var pageTop = $(document).scrollTop();
+  var pageBottom = pageTop + $(window).height();
+  var tags = $(".tag");
+
+  for (var i = 0; i < tags.length; i++) {
+    var tag = tags[i];
+
+    if ($(tag).position().top < pageBottom) {
+      $(tag).addClass("visible");
+    } else {
+      $(tag).removeClass("visible");
+    }
+  }
+});
+
+</script>
+
+
+<style>
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+</style>

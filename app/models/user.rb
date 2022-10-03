@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  devise :database_authenticatable, :registerable, :validatable
+  devise :database_authenticatable, :registerable, :validatable, :recoverable
 
   enum role: {Admin: 0, User: 1}
   attr_accessor :remember_token, :activation_token, :reset_token

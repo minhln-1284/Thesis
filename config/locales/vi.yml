@@ -1,4 +1,56 @@
 vi:
+  devise:
+    confirmations:
+      confirmed: "Email đã được xác thực thành công"
+      send_instructions: "Bạn sẽ sớm nhận được email hướng dẫn xác thực email"
+      send_paranoid_instructions: "Nếu email của bạn đã được lưu, bạn sẽ nhận được hướng dẫn xác thực email trong vài phút tới"
+    failure:
+      already_authenticated: "Đã đăng nhập rồi"
+      inactive: "Tài khoản của bạn chưa được kích hoạt"
+      invalid: "Không tồn tại %{authentication_keys} hoặc mật khẩu"
+      locked: "Tài khoản của bạn đã bị khóa"
+      last_attempt: "Còn 1 lần thử trước khi tài khoản bị khóa"
+      not_found_in_database: "Không tồn tại %{authentication_keys} hoặc mật khẩu"
+      timeout: "Phiên đăng nhập đã hết hạn. Xin hãy đăng nhập lại"
+      unauthenticated: "Bạn cần đăng nhập hoặc đăng ký trước khi tiếp tục"
+      unconfirmed: "Bạn cần xác minh tài khoản email trước khi tiếp tục"
+    mailer:
+      confirmation_instructions:
+        subject: "Hướng dẫn xác thực"
+      reset_password_instructions:
+        subject: "Hướng dẫn đặt lại mật khẩu"
+      unlock_instructions:
+        subject: "Hướng dẫn mở khóa"
+      email_changed:
+        subject: "Email đã thay đổi"
+      password_change:
+        subject: "Mật khẩu đã thay đổi"
+    omniauth_callbacks:
+      failure: "Không thể xác thực bạn từ %{kind} vì \"%{reason}\"."
+      success: "Xác thực thành công từ %{kind} tài khoản."
+    passwords:
+      no_token: "Bạn không thể truy cập trang này nếu không xuất phát từ email reset mật khẩu. Nếu bạn đúng là xuất phát từ emai reset mật khẩu, xin hãy dùng toàn bộ URL được cung cấp."
+      send_instructions: "Bạn sẽ nhận được email hướng dẫn reset password trong vài phút tới"
+      send_paranoid_instructions: "Nếu email của bạn đã được lưu, bạn sẽ nhận được hướng dẫn xác thực email trong vài phút tới"
+      updated: "Mật khẩu đã được thay đổi. Bạn đã được đăng nhập vào"
+      updated_not_active: "Đã thay đổi mật khẩu thành công"
+    registrations:
+      destroyed: "Tạm biệt! Tài khoản của bạn đã được huy"
+      signed_up: "Chào mừng! Bạn đã đăng ký thành công"
+      signed_up_but_inactive: "Đã đăng ký thành công nhưng hiện tại chưa thể đăng nhập tài khoản vì tài khoản chưa được kích hoạt"
+      signed_up_but_locked: "Đã đăng ký thành công nhưng hiện tại chưa thể đăng nhập tài khoản vì tài khoản đã bị khóa"
+      signed_up_but_unconfirmed: "Tin nhắn chứa đường link xác minh đã được gửi tới mail của bạn. Hãy kiểm tra email và làm theo đường link"
+      update_needs_confirmation: "Bạn đã cập nhật tài khoản thành công. Bây giờ chúng tôi cần xác minh tài khoản email mới của bạn, hãy làm theo đường link được gửi đến email mới của bạn"
+      updated: "Tải khoản của bạn đã được cập nhật thành công"
+      updated_but_not_signed_in: "Tài khoản của bạn đã được cập nhật thành công nhưng vì mật khẩu đã bị thay đổi, bạn cầu đăng nhập lại"
+    sessions:
+      signed_in: "Đăng nhập thành công"
+      signed_out: "Đăng xuât thành công"
+      already_signed_out: "Đăng xuât thành công"
+    unlocks:
+      send_instructions: "Bạn sẽ nhận được email hướng dẫn mở khóa tài khoản trong vài phút tới"
+      send_paranoid_instructions: "Nếu tài khoản của bạn tồn tại, bạn sẽ nhận được email hướng dẫn mở khóa tài khoản trong vài phút tới"
+      unlocked: "Tài khoản của bạn đã đươc mở khóa. Hãy đăng nhập để tiếp tục"
   submit: "Submit"
   flashes:
     alert_not_found: "Xin lỗi không tìm thấy"

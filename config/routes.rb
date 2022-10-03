@@ -3,8 +3,8 @@ Rails.application.routes.draw do
     root "static_pages#index"
     get "/about", to: "static_pages#about"
     get "/contact", to: "static_pages#contact"
-    get "/mens", to: "static_pages#mens"
-    get "/womans", to: "static_pages#womans"
+    get "/mens", to: "products#mens"
+    get "/womans", to: "products#womans"
     devise_for :users
     resources :users, except: :destroy
     resources :account_activations, only: %i(edit create)
@@ -17,6 +17,7 @@ Rails.application.routes.draw do
       resources :orders
       resources :products
       resources :users
+      resources :banners
       root "static_pages#index"
     end
     resources :ratings

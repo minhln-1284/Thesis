@@ -10,6 +10,7 @@ import 'channels'
 require('jquery')
 require('js/bootstrap.bundle.min')
 import "../stylesheets/application"
+import "bootstrap"
 
 Rails.start()
 Turbolinks.start()
@@ -17,3 +18,4 @@ ActiveStorage.start()
 
 global.toastr = require("toastr")
 require('admin/index.min')
+require('js/minh_custom')

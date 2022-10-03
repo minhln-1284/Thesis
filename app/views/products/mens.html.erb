@@ -1,0 +1,98 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-2">
+      <div class="w3-leftbar w3-border-blue">
+        <div class="input-group mb-3 container">
+          <%= search_form_for @search, url: mens_path, html: { method: :get } do |f| %>
+            <%= f.search_field :name_cont, class: "form-control" %>
+            <div>
+              <h5>Category</h5>
+            </div>
+            <div class="mb-1">
+              <%= link_to "Shirt" , mens_path(q: {"name_cont"=>"", "category_name_cont"=>"shirt", "category_eq"=>""}), class: "btn btn-outline-dark" %>
+            </div>
+            <div class="mb-1">
+              <%= link_to "Pants" , mens_path(q: {"name_cont"=>"", "category_name_cont"=>"pants", "category_eq"=>""}), class: "btn btn-outline-dark" %>
+            </div>
+            <div class="mb-1">
+              <%= link_to "Shoes" , mens_path(q: {"name_cont"=>"", "category_name_cont"=>"shoes", "category_eq"=>""}), class: "btn btn-outline-dark" %>
+            </div>
+            <div class="mb-1">
+              <%= link_to "Accessories" , mens_path(q: {"name_cont"=>"", "category_name_cont"=>"accessories", "category_eq"=>""}), class: "btn btn-outline-dark" %>
+            </div>
+            <div>
+              <h5>Price range</h5>
+            </div>
+            <div class="mb-1">
+              <%= f.label :From%>
+              <%= f.search_field :price_gteq, class: "form-control" %>
+            </div>
+            <div class="mb-1">
+              <%= f.label :To%>
+              <%= f.search_field :price_lteq, class: "form-control" %>
+            </div>
+            <%= f.submit "Search", class: "btn btn-outline-dark mt-2"%>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-10">
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <div class="dropdown-minh" style="padding-bottom: 1.5%;">
+              <button class="dropbtn-minh btn btn-outline-dark">
+                <%= t("static_pages.filter") %>
+              </button>
+              <div class="dropdown-content-minh">
+                <%= sort_link(@search, :created_at, 'Newest', default_order: :asc) %>
+                <%= sort_link(@search, :created_at, 'Oldest', default_order: :desc) %>
+                <%= sort_link(@search, :price, 'Cheapest', default_order: :asc) %>
+                <%= sort_link(@search, :price, 'Most Expensive', default_order: :desc) %>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+          </div>
+        </div>
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+          <% @products.each do |p|%>
+            <div class="col mb-5">
+              <div class="zoom">
+                <div class="card h-100">
+                  <!-- Product image-->
+                  <%= image_tag p.product_images.first.image.variant(resize_to_fill: [200, 200]), class: "card-img-top" %>
+                  <!-- Product details-->
+                  <div class="card-body p-4">
+                    <div class="text-center">
+                      <!-- Product name-->
+                      <h5 class="fw-bolder">
+                        <%= link_to p.name, product_path(p), style: "text-decoration: none; color: black;" %>
+                      </h5>
+                      <%= number_to_currency(p.price) %>
+                    </div>
+                  </div>
+                  <!-- Product actions-->
+                  <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                    <%= form_with url: carts_path(id: p.id ), method: :post do |f| %>
+                      <fieldset>
+                        <% if logged_in? %>
+                          <%= f.hidden_field :quantily, value: 1, max: 10, min: Settings.carts.min_quantily %>
+                          <input type="submit" name="submit" value="Add to cart"
+                                class="btn btn-outline-dark mt-auto" />
+                        <% else %>
+                          <%= link_to "Add to cart" , new_user_session_path, class: "btn btn-outline-dark" %>
+                        <% end %>
+                      </fieldset>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+        <%== pagy_bootstrap_nav(@pagy) %>
+      </div>
+    </div>
+  </div>
+</div>

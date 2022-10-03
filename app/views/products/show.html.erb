@@ -1,28 +1,91 @@
 <!-- Product section-->
-
-  <div class="container px-4 px-lg-5 my-5">
-    <div class="row gx-4 gx-lg-5 align-items-center">
-      <div class="col-md-6">
-        <%= image_tag @product.product_images.first.image, class: "card-img-top mb-5 mb-md-0"%>
+<div class="container px-4 px-lg-5 my-5">
+  <div class="row gx-4 gx-lg-5 align-items-center">
+    <div class="col-md-6">
+      <%= render "image", product: @product %>
+    </div>
+    <div class="col-md-6">
+      <div class="mb-1"><%= @product.category.name %></div>
+      <h1 class="display-5 fw-bolder"><%= @product.name %></h1>
+      <div class="fs-5 mb-5">
+        <span><%= number_to_currency(@product.price) %></span>
       </div>
-      <div class="col-md-6">
-        <div class="mb-1"><%= @product.category.name %></div>
-        <h1 class="display-5 fw-bolder"><%= @product.name %></h1>
-        <div class="fs-5 mb-5">
-          <span><%= number_to_currency(@product.price) %></span>
-        </div>
-        <p class="lead"><%= @product.description %></p>
-        <div class="d-flex">
-          <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1"
-            style="max-width: 3rem" />
-          <button class="btn btn-outline-dark flex-shrink-0" type="button">
-            <i class="bi-cart-fill me-1"></i>
-            Add to cart
-          </button>
-        </div>
+      <strong>Description</strong>
+      <p class="lead"><%= @product.description %></p>
+      <div class="d-flex">
+        <%= form_with url: carts_path(id: @product.id ), method: :post do |f| %>
+          <fieldset>
+            <% if logged_in? %>
+              <%= f.hidden_field :quantily, value: 1, max: 10, min: Settings.carts.min_quantily %>
+              <input
+                type="submit"
+                name="submit"
+                value="Add to cart"
+                class="btn btn-outline-dark mt-auto"
+              />
+            <% else %>
+              <%= link_to "Add to cart", new_user_session_path, class: "btn btn-outline-dark" %>
+            <% end %>
+          </fieldset>
+        <% end %>
       </div>
     </div>
   </div>
-<!-- Related items section-->
-<!-- nếu thừa thời gian muốn làm thêm phần sản phẩm liên quan thì copy lại đoạn này từ desktop/startbootstrap-shop-item-gh-pages/index -->
-<!-- Footer-->
+</div>
+<!-- Related items section--> <!-- nếu thừa thời gian muốn làm thêm phần sản
+phẩm liên quan thì copy lại đoạn này từ
+desktop/startbootstrap-shop-item-gh-pages/index --> <!-- Footer-->
+<% unless @related.nil? %>
+  <div class="container px-4 px-lg-5 mt-5">
+    <h2>Related products</h2>
+    <div
+      class="
+        row
+        gx-4
+        gx-lg-5
+        row-cols-2
+        row-cols-md-3
+        row-cols-xl-4
+        justify-content-center
+      "
+    >
+      <% @related.each do |p| %>
+        <div class="col mb-5">
+          <div class="zoom">
+            <div class="card h-100">
+              <!-- Product image-->
+              <%= image_tag p.product_images.first.image.variant(resize_to_fill: [200, 200]), class: "card-img-top" %>
+              <!-- Product details-->
+              <div class="card-body p-4">
+                <div class="text-center">
+                  <!-- Product name-->
+                  <h5 class="fw-bolder"><%= link_to p.name, product_path(p), style:"text-decoration: none; color: black;" %></h5>
+                  <%= number_to_currency(p.price) %>
+                </div>
+              </div>
+              <!-- Product actions-->
+              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                <%= form_with url: carts_path(id: p.id ), method: :post do |f| %>
+                  <fieldset>
+                    <% if logged_in? %>
+                      <%= f.hidden_field :quantily, value: 1, max: 10, min: Settings.carts.min_quantily %>
+                      <input
+                        type="submit"
+                        name="submit"
+                        value="Add to cart"
+                        class="btn btn-outline-dark mt-auto"
+                      />
+                    <% else %>
+                      <%= link_to "Add to cart", new_user_session_path, class: "btn btn-outline-dark" %>
+                    <% end %>
+                  </fieldset>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <%== pagy_bootstrap_nav(@pagy2) %>
+  </div>
+<% end %>

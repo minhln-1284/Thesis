@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_09_042729) do
+ActiveRecord::Schema.define(version: 2022_10_01_180954) do
 
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -38,6 +38,17 @@ ActiveRecord::Schema.define(version: 2022_09_09_042729) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "aprioris", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "banners", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "content"
   end
 
   create_table "categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -87,7 +98,7 @@ ActiveRecord::Schema.define(version: 2022_09_09_042729) do
   end
 
   create_table "products", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.float "price"
     t.string "description"
     t.integer "quantity_in_stock"
@@ -95,7 +106,6 @@ ActiveRecord::Schema.define(version: 2022_09_09_042729) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["category_id"], name: "index_products_on_category_id"
-    t.index ["name"], name: "index_products_on_name", unique: true
   end
 
   create_table "ratings", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -107,6 +117,12 @@ ActiveRecord::Schema.define(version: 2022_09_09_042729) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["product_id"], name: "fk_rails_f846e598a7"
     t.index ["user_id"], name: "index_ratings_on_user_id"
+  end
+
+  create_table "recommendeds", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "associations"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -125,6 +141,9 @@ ActiveRecord::Schema.define(version: 2022_09_09_042729) do
     t.string "reset_digest"
     t.datetime "reset_sent_at"
     t.string "encrypted_password", default: "", null: false
+    t.string "recommend"
+    t.string "reset_password_sent_at"
+    t.datetime "reset_password_token"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
