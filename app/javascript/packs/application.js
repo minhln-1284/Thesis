@@ -18,4 +18,3 @@ ActiveStorage.start()
 
 global.toastr = require("toastr")
 require('admin/index.min')
-require('js/minh_custom')

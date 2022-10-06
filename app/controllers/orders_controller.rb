@@ -56,7 +56,6 @@ class OrdersController < ApplicationController
 
   private
   def order_params
-    binding.pry
     params.require(:order).permit Order::ORDER_ATTRS
   end
 

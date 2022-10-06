@@ -31,6 +31,9 @@ gem "whenever"
 gem "devise"
 gem "ransack"
 gem "htmlbeautifier"
+gem "ahoy_matey"
+gem "jquery-rails"
+gem "apriori-ruby"
 
 group :development, :test do
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]

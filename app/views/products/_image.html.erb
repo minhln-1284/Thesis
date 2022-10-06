@@ -4,7 +4,6 @@
       <% product.product_images.includes(image_attachment: :blob).each do |proimg| %>
         <% if proimg == product.product_images.first %>
           <div class="carousel-item active">
-            <strong><%= t("admin.product.image") + product.product_images.find_index(proimg).to_s %></strong>
             <%= image_tag((proimg.image), class: "d-block w-100") if proimg.image.present?%>
           </div>
         <% else %>

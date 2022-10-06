@@ -1,18 +1,13 @@
 class StaticPagesController < ApplicationController
+  include StaticPagesHelper
+    
   def index
     @banners = Banner.all
     @products = Product.all.limit(4)
-    if !current_user.nil?
-      if !current_user.recommend.nil?
-        arr = current_user.recommend.split("-")
-        @recommendations = []
-        arr.each do |id|
-          item = Product.find_by(id: id.to_i)
-          @recommendations << item
-        end
-      end
+    if @most_viewed.nil?
+      @most_viewed = Recommended.most_viewed
     end
-    
+    recommend_for_you
   end
 
   def mens

@@ -13,4 +13,9 @@ module ProductsHelper
     end
     return related
   end
+
+  def current_visitor_selections
+    session[:selection] ||= []
+    @selections = session[:selection]
+  end
 end

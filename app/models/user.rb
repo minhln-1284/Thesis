@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_many :visits, class_name: "Ahoy::Visit"
   devise :database_authenticatable, :registerable, :validatable, :recoverable
 
   enum role: {Admin: 0, User: 1}
