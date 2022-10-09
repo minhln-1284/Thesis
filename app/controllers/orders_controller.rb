@@ -8,7 +8,6 @@ class OrdersController < ApplicationController
   end
 
   def new
-    binding.pry
     if current_user.nil?
       @order = Order.new
     else
@@ -18,7 +17,6 @@ class OrdersController < ApplicationController
   end
 
   def create
-    binding.pry
     if current_user.nil?
       @order = Order.new order_params
       @order.user_id = 1
@@ -71,7 +69,6 @@ class OrdersController < ApplicationController
   end
 
   def create_transaction
-    binding.pry
     ActiveRecord::Base.transaction do
       @order.save!
       create_order_detail

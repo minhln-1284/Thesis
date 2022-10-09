@@ -18,7 +18,6 @@ module StaticPagesHelper
         pids.map!{|id| id.to_i}
         session_associations = (session_associations + pids).uniq
       end
-      binding.pry
     end
   end
 end

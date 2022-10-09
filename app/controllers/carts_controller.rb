@@ -32,7 +32,7 @@ class CartsController < ApplicationController
     else
       flash[:danger] = t ".fail_delete"
     end
-    redirect_to cart_path current_user.id
+    redirect_to cart_path(id: 2)
   end
 
   private

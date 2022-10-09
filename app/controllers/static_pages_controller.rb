@@ -1,13 +1,29 @@
 class StaticPagesController < ApplicationController
   include StaticPagesHelper
-    
+  include ProductsHelper
+  @@count = 0
+  @@recommendations
+
   def index
     @banners = Banner.all
     @products = Product.all.limit(4)
     if @most_viewed.nil?
       @most_viewed = Recommended.most_viewed
     end
-    recommend_for_you
+    if @@count == 0
+      recommends = checkout_these_product
+      @recommendations = Product.where(id: recommends)
+      session[:recommend] = recommends
+      @@count += 1
+    elsif @@count < 6
+      @recommendations = Product.where(id: session[:recommend])
+      @@count += 1
+    else
+      recommends = checkout_these_product
+      @recommendations = Product.where(id: recommends)
+      session[:recommend] = recommends
+      @@count = 1
+    end
   end
 
   def mens

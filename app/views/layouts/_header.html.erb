@@ -1,19 +1,18 @@
 <!-- Navigation-->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container px-4 px-lg-5">
     <%= link_to root_path, class: "navbar-brand" do %>
       <%= image_tag "website_logo.png", style: "height:60px; width:150px"%>
     <% end %>
     <!-- Search bar -->
-
     <%= search_form_for @q, url: products_path, class: "d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search",
                         html: { method: :get } do |f| %>
       <div class="input-group">
         <%= f.search_field :name_cont, class: "form-control bg-light border-0 small", placeholder: "Search for..."%>
         <div class="input-group-append">
-          <%= button_tag(type: "submit", class: "btn btn-dark") do %>
-    <i class="fas fa-search fa-sm"></i>
-<% end %>
+          <%= button_tag(type: "submit", class: "btn btn-outline-info") do %>
+            <i class="fas fa-search fa-sm"></i>
+          <% end %>
         </div>
       </div>
     <% end %>
@@ -22,10 +21,10 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
       </ul>
       <form class="d-flex">
-        <%= link_to cart_path(id: 2), class: "btn btn-outline-dark" do %>
+        <%= link_to cart_path(id: 2), class: "btn btn-outline-light" do %>
           <i class="bi-cart-fill me-1"></i>
           Cart
-          <span class="badge bg-dark text-white ms-1 rounded-pill">
+          <span class="badge bg-light text-black ms-1 rounded-pill">
             <%= current_cart.values.count %>
           </span>
         <% end %>
@@ -34,7 +33,7 @@
         <%= link_to "Log out", destroy_user_session_path, method: :delete, style: "padding-left: 2%; color: black;" %>
         <%= link_to icon("fa-solid", "user"), edit_user_registration_path, style: "padding-left: 1%; color: black;" %>
       <% else %>
-        <%= link_to "Log in", new_user_session_path, style: "padding-left: 2%; color: black;" %>
+        <%= link_to "Log in", new_user_session_path, style: "padding-left: 2%; color: white;" %>
       <% end %>
     </div>
   </div>

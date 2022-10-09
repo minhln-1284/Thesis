@@ -1,4 +1,6 @@
 class Recommended < ApplicationRecord
+  require 'apriori'
+
   def self.most_viewed
     if Ahoy::Event.any?
       list = []
@@ -28,6 +30,7 @@ class Recommended < ApplicationRecord
   end
 
   def self.test_data
+    Recommended.destroy_all
     order_detail = OrderDetail.all
     order = Order.all
     h1 = []
@@ -40,6 +43,34 @@ class Recommended < ApplicationRecord
       end
       h1 << list_item
     end
-    return h1
+    test_data = h1
+    item_set = Apriori::ItemSet.new(test_data)
+    support = 7
+    confidence = 12
+    rules = item_set.mine(support, confidence)
+    rules.keys.each do |key|
+      Recommended.create!(associations: key)
+    end
+    users = User.all
+    users.each do |user|
+      if user.orders.any?
+        bought = []
+        user.orders.each do |order|
+          pids = order.products.pluck(:id)
+          bought = (bought + pids).uniq
+        end
+        recommend = []
+        rules.keys.each do |key|
+          associations = key.split("=>").map!{|id| id.to_i}
+          if bought.include? associations.first and !bought.include? associations.second
+            recommend << associations.second
+          end
+        end
+        recommend.uniq!
+        if !recommend.empty?
+          user.update(recommend: recommend)
+        end
+      end
+    end
   end
 end

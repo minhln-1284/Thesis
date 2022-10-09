@@ -29,9 +29,9 @@ class ProductsController < ApplicationController
     @product = Product.find_by(id: params[:id])
     @ratings = Rating.where(product_id: params[:id]).newest
     @pagy, @ratings = pagy @ratings if @ratings.present?
-    if Recommended.all.any?
-      @pagy2, @related = pagy(generate_related(@product), items: 4)
-    end
+
+    @pagy2, @same_category = pagy(@product.category.products.where.not(id: params[:id]).limit(8) , items: 4, page_param: :others)
+
     return if @product.present?
 
     flash[:danger] = t "static_pages.product_not_found"
@@ -52,9 +52,10 @@ class ProductsController < ApplicationController
   end
 
   def visitor_selection pid
-    if !@selections.include? pid
-      @selections << pid
-      session[:selection] = @selections
+    session[:selection] ||= []
+
+    if !session[:selection].include? pid.to_i
+      session[:selection] << pid.to_i
     end
   end
 end
