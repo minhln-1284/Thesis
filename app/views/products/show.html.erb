@@ -13,7 +13,7 @@
       <strong>Description</strong>
       <p class="lead"><%= @product.description %></p>
       <div class="d-flex">
-        <%= form_with url: carts_path(id: @product.id ), method: :post do |f| %>
+        <%= form_with url: carts_path(id: @product.id), method: :post do |f| %>
           <fieldset>
             <% if logged_in? %>
               <%= f.hidden_field :quantily, value: 1, max: 10, min: Settings.carts.min_quantily %>
@@ -36,56 +36,52 @@
 phẩm liên quan thì copy lại đoạn này từ
 desktop/startbootstrap-shop-item-gh-pages/index --> <!-- Footer-->
 <% unless @same_category.nil? %>
-  <div class="container px-4 px-lg-5 mt-5">
-    <h2>Related products</h2>
-    <div
-      class="
-        row
-        gx-4
-        gx-lg-5
-        row-cols-2
-        row-cols-md-3
-        row-cols-xl-4
-        justify-content-center
-      "
-    >
-      <% @same_category.each do |p| %>
-        <div class="col mb-5">
-          <div class="zoom">
-            <div class="card h-100">
-              <!-- Product image-->
-              <%= image_tag p.product_images.first.image.variant(resize_to_fill: [200, 200]), class: "card-img-top" %>
-              <!-- Product details-->
-              <div class="card-body p-4">
-                <div class="text-center">
-                  <!-- Product name-->
-                  <h5 class="fw-bolder"><%= link_to p.name, product_path(p), style:"text-decoration: none; color: black;" %></h5>
-                  <%= number_to_currency(p.price) %>
+<div class="bbb_viewed">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="bbb_main_container">
+          <div class="bbb_viewed_title_container">
+              <h3>Same category</h3>
+              <div class="bbb_viewed_nav_container">
+                  <div class="bbb_viewed_nav bbb_viewed_prev"><i class="fas fa-chevron-left"></i></div>
+                  <div class="bbb_viewed_nav bbb_viewed_next"><i class="fas fa-chevron-right"></i></div>
+              </div>
+          </div>
+          <div class="bbb_viewed_slider_container">
+              <div class="owl-carousel owl-theme bbb_viewed_slider">
+                <% @same_category.each do |product| %>
+                  <div class="owl-item">
+                    <div class="bbb_viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
+                      <%= image_tag product.product_images.first.image.variant(resize_to_fill: [700, 950]), class: "card-img-top" %>
+                        <div class="bbb_viewed_content text-center">
+                            <%= number_to_currency(product.price, locale: :vi) %>
+                            <%= link_to product.name, product_path(product), style: "text-decoration: none; color: black; font-weight: bold;" %>
+                        </div>
+                        <%= form_with url: carts_path(id: product.id), method: :post do |f| %>
+                            <fieldset>
+                              <% # if logged_in? %>
+                                <%= f.hidden_field :quantily, value: 1, max: 10, min: Settings.carts.min_quantily %>
+                                <input
+                                  type="submit"
+                                  name="submit"
+                                  value="Add to cart"
+                                  class="btn btn-outline-dark mt-auto"/>
+                              <% # else %>
+                                <% #= link_to "Add to cart", new_user_session_path, class: "btn btn-outline-dark" %>
+                              <% # end %>
+                            </fieldset>
+                          <% end %>
+                      </div>
+                    </div>
+                  <% end %>
                 </div>
               </div>
-              <!-- Product actions-->
-              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <%= form_with url: carts_path(id: p.id ), method: :post do |f| %>
-                  <fieldset>
-                    <% if logged_in? %>
-                      <%= f.hidden_field :quantily, value: 1, max: 10, min: Settings.carts.min_quantily %>
-                      <input
-                        type="submit"
-                        name="submit"
-                        value="Add to cart"
-                        class="btn btn-outline-dark mt-auto"
-                      />
-                    <% else %>
-                      <%= link_to "Add to cart", new_user_session_path, class: "btn btn-outline-dark" %>
-                    <% end %>
-                  </fieldset>
-                <% end %>
-              </div>
-            </div>
           </div>
         </div>
-      <% end %>
+      </div>
     </div>
-    <%== pagy_bootstrap_nav(@pagy2) %>
   </div>
+</div>
 <% end %>
+<br><br>

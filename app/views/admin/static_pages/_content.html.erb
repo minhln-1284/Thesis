@@ -40,6 +40,17 @@
               <%= link_to "Banner", admin_banners_path, class: "nav-link" %>
             </nav>
           </div>
+          <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages"
+              aria-expanded="false" aria-controls="collapsePages">
+
+            <%= link_to root_path, class: "nav-link" do %>
+            <div class="sb-nav-link-icon">
+              <%= icon("fa regular", "bag-shopping") %>
+              </div>
+              <%= t("static_pages.user_page") %>
+
+            <% end %>
+          </a>
         </div>
       </div>
     </nav>

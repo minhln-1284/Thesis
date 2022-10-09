@@ -15,11 +15,11 @@
       <% @banners.includes(image_attachment: :blob).each do |banner| %>
         <% if banner == @banners.first %>
           <div class="carousel-item active">
-            <%= image_tag((banner.image.variant(resize_to_fill: [1680, 700])), class: "d-block w-100") if banner.image.present?%>
+            <%= image_tag((banner.image.variant(resize_to_fill: [1680, 650])), class: "d-block w-100") if banner.image.present?%>
           </div>
         <% else %>
           <div class="carousel-item">
-            <%= image_tag((banner.image.variant(resize_to_fill: [1680, 700])), class: "d-block w-100") if banner.image.present?%>
+            <%= image_tag((banner.image.variant(resize_to_fill: [1680, 650])), class: "d-block w-100") if banner.image.present?%>
           </div>
         <% end %>
       <% end %>
@@ -80,24 +80,28 @@
       </div>
     </div>
   </section>
-  <% if !@recommendations.nil? %>
-    <%= render partial: "recommend",  recommendations: @recommendations %>
-  <% end %>
-  <!-- For moms -->
-  <div style="padding: 0% 2% 6% 2%;">
-    <div class="row center"  >
-      <div class="col">
-        <section class="tag"><h1>Clothings for moms</h1></section>
-        <section class="tag"><p><%= Faker::Lorem.sentence(word_count: 80) %></p></section>
-        <div class="tag">
-          <%= link_to "Explore now", womans_path, class: "btn btn-outline-dark" %>
+  <section class="py-5">
+    <div class="container px-4 px-lg-5 mt-5">
+      <% if !@recommendations.nil? %>
+        <%= render partial: "recommend",  recommendations: @recommendations %>
+      <% end %>
+      <!-- For moms -->
+      <div style="padding: 0% 2% 6% 2%;">
+        <div class="row center"  >
+          <div class="col">
+            <section class="tag"><h1>Clothings for moms</h1></section>
+            <section class="tag"><p><%= Faker::Lorem.sentence(word_count: 80) %></p></section>
+            <div class="tag">
+              <%= link_to "Explore now", womans_path, class: "btn btn-outline-dark" %>
+            </div>
+          </div>
+          <div class="col tag">
+            <%= image_tag "moms_shopping.jpg", style: "width: 550px;" %>
+          </div>
         </div>
       </div>
-      <div class="col tag">
-        <%= image_tag "moms_shopping.jpg", style: "width: 550px;" %>
-      </div>
     </div>
-  </div>
+  </section>
 
   <!-- For dads -->
   <div style="padding-left: 2%; padding-right: 2%">
@@ -114,22 +118,7 @@
       </div>
     </div>
   </div>
-
-    <!-- For kids -->
-  <div style="padding: 6% 2% 6% 2%;">
-    <div class="row center"  >
-      <div class="col">
-        <section class="tag"><h1>Clothings for kids</h1></section>
-        <section class="tag"><p><%= Faker::Lorem.sentence(word_count: 80) %></p></section>
-        <div class="tag">
-          <%= link_to "Explore now", "#", class: "btn btn-outline-dark" %>
-        </div>
-      </div>
-      <div class="col tag">
-        <%= image_tag "kids_shopping.jpg", style: "width: 550px;" %>
-      </div>
-    </div>
-  </div>
+  <br><br>
 </body>
 
 
@@ -149,7 +138,6 @@ $(document).on("scroll", function() {
     }
   }
 });
-
 </script>
 
 

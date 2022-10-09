@@ -3,11 +3,15 @@ class ApplicationController < ActionController::Base
   include SessionsHelper
   include CartsHelper
   protect_from_forgery with: :exception
-  before_action :set_locale
+  before_action :set_locale, :track_action
   before_action :current_cart, :load_product_in_cart, :search_bar
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   private
+  def track_action
+    ahoy.track "Ran action", request.path_parameters
+  end
+
   def search_bar
     @q = Product.ransack(params[:q])
   end

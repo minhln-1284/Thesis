@@ -1,44 +1,59 @@
 <div class="container">
-<div style = "padding: 3%;">
-  <div class="row align-items-center">
-    <div class="col-sm-9">
-      <div class="card">
-        <div style="padding: 3%;">
-          <h2>My cart</h2>
-
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">Product</th>
-                <th scope="col">Price</th>
-                <th scope="col">Quantity</th>
-                <th scope="col">Sum</th>
-              </tr>
-            </thead>
-            <tbody>
-              <%= render partial: "product" , collection: @products %>
-            </tbody>
-          </table>
+  <div style = "padding: 3%;">
+    <div class="row align-items-center">
+      <div class="col-sm-9">
+        <div class="card">
+          <div style="padding: 3%;">
+            <h2>My cart</h2>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Product</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Quantity</th>
+                  <th scope="col">Sum</th>
+                </tr>
+              </thead>
+              <tbody>
+                <%= render partial: "product" , collection: @products %>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
-    </div>
-
-    <div class="col-sm-3">
-      <div class="card">
-        <div style="padding: 3%; text-align: center;">
-          <%= form_for @order do |f| %>
-            <%= f.hidden_field :amount, value: total_cart, class: "form-control" %>
-            <div class="total">
-              <span><%= t ".total" %></span>
-              <span class="order-price"> <%= number_to_currency total_cart, negative_format: "(%u%n)" %> </span>
-              <div class="button-container">
-                <button class="order btn btn-success" type="">Checkout</button>
+      <div class="col-sm-3">
+        <div class="card">
+          <div class="card-header text-center"><strong>Customer info</strong></div>
+          <div style="padding: 2% 3.5%;">
+            <% if user_signed_in? %>
+              <div class="mb-3"><%= "Email: " + current_user.email %></div>
+              <div class="mb-3"><%= "Name: " + current_user.name unless current_user.name.nil? %></div>
+              <div class="mb-3"><%= "Phone: " + current_user.phone unless current_user.phone.nil? %></div>
+              <div class="mb-3"><%= "Address: " + current_user.address unless current_user.address.nil? %></div>
+            <% else %>
+              <div class="mb-3"><%= "Phone: " + @order.phone %></div>
+            <% end %>
+          </div>
+        </div>
+        <br>
+        <div class="card">
+          <div style="padding: 3%; text-align: center;">
+            <%= form_for @order do |f| %>
+              <%= f.hidden_field :amount, value: total_cart, class: "form-control" %>
+              <% unless user_signed_in? %>
+                <%= f.hidden_field :phone, value: @order.phone, class: "form-control" %>
+              <% end %>
+              <div class="total">
+                <span><%= t ".total" %></span>
+                <span class="order-price"> <%= number_to_currency total_cart, negative_format: "(%u%n)" %> </span>
+                <div class="button-container">
+                  <button class="order btn btn-success" type="">Checkout</button>
+                </div>
               </div>
-            </div>
-          <% end %>
+            <% end %>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 </div>

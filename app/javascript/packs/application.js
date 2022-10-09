@@ -8,7 +8,6 @@ import Turbolinks from 'turbolinks'
 import * as ActiveStorage from '@rails/activestorage'
 import 'channels'
 require('jquery')
-require('js/bootstrap.bundle.min')
 import "../stylesheets/application"
 import "bootstrap"
 
@@ -18,3 +17,5 @@ ActiveStorage.start()
 
 global.toastr = require("toastr")
 require('admin/index.min')
+require('js/product_slider')
+require('js/owl.carousel')

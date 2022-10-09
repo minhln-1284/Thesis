@@ -61,6 +61,7 @@ vi:
     create_success: "Tạo mới thành công"
     create_failed: "Không tạo mới được"
   static_pages:
+    user_page: "Trang người dùng"
     home: "Trang chủ"
     sign_in: "Đăng nhập"
     sign_up: "Đăng ký"

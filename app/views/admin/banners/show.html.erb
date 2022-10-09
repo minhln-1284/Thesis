@@ -11,10 +11,9 @@
         <p class="card-text">
           <%= @banner.content %>
         </p>
-        <br>
         <div>
           <% if @banner.image.present? %>
-            <%= image_tag(@banner.image) %>
+            <%= image_tag(@banner.image.variant(resize_to_fill: [840, 440])) %>
           <% end %>
         </div>
       </div>

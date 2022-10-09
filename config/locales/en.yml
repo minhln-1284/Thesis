@@ -71,6 +71,7 @@ en:
     create_success: "Successfully created"
     create_failed: "Error occured during creating"
   static_pages:
+    user_page: "User's pages"
     home: "Home"
     sign_in: "Sign in"
     sign_up: "Sign up"

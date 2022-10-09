@@ -20,6 +20,7 @@ module ProductsHelper
   end
 
   def checkout_these_product
+    session[:selection] ||= []
     recommend_pids = []
     if recommend_pids.size < 8
       session[:selection].each do |pid|
@@ -31,10 +32,13 @@ module ProductsHelper
       end
     end
     if !current_visit.user_id.nil?
-      user_bought = eval(User.find(id: current_visit.user_id).recommend)
-      check = session[:selection] - user_bought
-      if check != session[:selection]
-        recommend_pids = user_bought - session[:selection]
+      user = User.find_by(id: current_visit.user_id)
+      if !user.recommend.nil?
+        user_bought = eval(user.recommend)
+        check = session[:selection] - user_bought
+        if check != session[:selection]
+          recommend_pids = user_bought - session[:selection]
+        end
       end
     end
     #Sau khi test với tập dữ liệu lớn thì cân nhắc xem có cần cho đoạn
@@ -47,7 +51,9 @@ module ProductsHelper
         left << associations.first
         check = recommend_pids - left
         if check != recommend_pids
-          recommend_pids = (recommend_pids + associations.second).uniq
+          second = []
+          second << associations.second
+          recommend_pids = (recommend_pids + second).uniq
         end
       end
     end

@@ -1,7 +1,6 @@
 class ProductsController < ApplicationController
   include ProductsHelper
 
-  after_action :track_action
   before_action :current_visitor_selections
 
   def index
@@ -30,7 +29,7 @@ class ProductsController < ApplicationController
     @ratings = Rating.where(product_id: params[:id]).newest
     @pagy, @ratings = pagy @ratings if @ratings.present?
 
-    @pagy2, @same_category = pagy(@product.category.products.where.not(id: params[:id]).limit(8) , items: 4, page_param: :others)
+    @same_category = @product.category.products.where.not(id: params[:id]).limit(10)
 
     return if @product.present?
 
@@ -47,11 +46,8 @@ class ProductsController < ApplicationController
   end
 
   private
-  def track_action
-    ahoy.track "Ran action", request.path_parameters
-  end
 
-  def visitor_selection pid
+  def visitor_selection(pid)
     session[:selection] ||= []
 
     if !session[:selection].include? pid.to_i

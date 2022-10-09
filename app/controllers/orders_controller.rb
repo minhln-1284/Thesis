@@ -8,10 +8,14 @@ class OrdersController < ApplicationController
   end
 
   def new
-    if current_user.nil?
-      @order = Order.new
-    else
+    if !current_user.nil?
       @order = current_user.orders.build
+    elsif !params[:phone].blank?
+      @order = Order.new
+      @order.phone = params[:phone]
+    else
+      flash[:danger] = "Phone number is required"
+      redirect_to request.referrer
     end
     @product = Product.find_by id: params[:id]
   end
@@ -19,11 +23,13 @@ class OrdersController < ApplicationController
   def create
     if current_user.nil?
       @order = Order.new order_params
-      @order.user_id = 1
+      @order.phone = params[:order][:phone]
+      @name = params[:order][:name] unless params[:order][:name].blank?
     else
       @order = current_user.orders.new order_params
     end
     #@order = current_user.orders.new order_params
+    binding.pry
     if @order.valid?
       create_transaction
     else
