@@ -4,12 +4,6 @@
     <%= link_to root_path, class: "navbar-brand" do %>
       <%= image_tag "website_logo.png", style: "height:60px; width:150px"%>
     <% end %>
-    <!-- Dropdown Categories -->
-    <div style="padding-right: 1%;">
-      <button class= "minh-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-        <i class="fa-solid fa-list-ul"></i> Categories
-      </button>
-    </div>
     <!-- Search bar -->
     <%= search_form_for @q, url: products_path, class: "d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search",
                         html: { method: :get } do |f| %>
@@ -44,10 +38,3 @@
     </div>
   </div>
 </nav>
-
-<div class="collapse" id="collapseExample">
-  <div class="card card-body" style="background-color: #faf9f8;">
-    Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
-  </div>
-</div>
-

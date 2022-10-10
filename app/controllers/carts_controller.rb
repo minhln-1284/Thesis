@@ -42,7 +42,7 @@ class CartsController < ApplicationController
     return if @product
 
     flash[:danger] = t ".no_product"
-    redirect_to carts_path current_user.id
+    redirect_to request.referer
   end
 
   def check_quantily product

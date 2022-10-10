@@ -28,8 +28,6 @@ class OrdersController < ApplicationController
     else
       @order = current_user.orders.new order_params
     end
-    #@order = current_user.orders.new order_params
-    binding.pry
     if @order.valid?
       create_transaction
     else

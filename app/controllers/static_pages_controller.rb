@@ -13,9 +13,9 @@ class StaticPagesController < ApplicationController
       if @@most_viewed.nil?
         @@most_viewed = Product.sample(4)
       end
-      @product = @@most_viewed
+      @products = @@most_viewed.take(4)
     else
-      @product = @@most_viewed
+      @products = @@most_viewed.take(4)
     end
 
     if @@count == 0

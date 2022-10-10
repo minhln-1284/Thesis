@@ -29,7 +29,7 @@ class ProductsController < ApplicationController
     @ratings = Rating.where(product_id: params[:id]).newest
     @pagy, @ratings = pagy @ratings if @ratings.present?
 
-    @same_category = @product.category.products.where.not(id: params[:id]).limit(10)
+    @same_category = @product.category.products.where.not(id: params[:id]).sample(10)
 
     return if @product.present?
 

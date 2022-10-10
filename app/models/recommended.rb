@@ -25,28 +25,21 @@ class Recommended < ApplicationRecord
         extra = Product.order(Arel.sql('rand()')).first(take_item)
         product_list += extra
       end
+      product_list.uniq!
+
       return product_list
     end
   end
 
   def self.test_data
     Recommended.destroy_all
-    order_detail = OrderDetail.all
-    order = Order.all
     h1 = []
-    order.each do |o|
-      list_item = []
-      order_detail.each do |od|
-        if od.order_id == o.id
-          list_item << (od.product.id)
-        end
-      end
-      h1 << list_item
+    Order.all.each do |order|
+      h1 << order.products.pluck(:id)
     end
-    test_data = h1
-    item_set = Apriori::ItemSet.new(test_data)
-    support = 7
-    confidence = 12
+    item_set = Apriori::ItemSet.new(h1)
+    support = 3.2
+    confidence = 10
     rules = item_set.mine(support, confidence)
     rules.keys.each do |key|
       Recommended.create!(associations: key)
