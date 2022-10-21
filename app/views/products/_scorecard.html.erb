@@ -1,0 +1,237 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div class="content-main">
+  <% result = star_statistic(ratings) %>
+  <div class="content">
+    <% checked = result[5].round %>
+    <span class="content-heading">Average rating:</span>
+    <% 5.times do %>
+      <% if checked > 0 %>
+        <span class="fa fa-star checked"></span>
+        <% checked -= 1 %>
+      <% else %>
+        <span class="fa fa-star"></span>
+      <% end %>
+    <% end %>
+    <p class="summary"></p>
+    <hr>
+    <div class="row">
+      <div class="col-1">
+        <div>5 star</div>
+      </div>
+      <div class="col-2">
+        <div class="bar-container">
+          <div class="bar bar-5-star"></div>
+        </div>
+      </div>
+      <div class="col-3">
+        <div class="rating-total" data-rating-count="<%= result[4] %>"></div>
+      </div>
+      <div class="col-1">
+        <div>4 star</div>
+      </div>
+      <div class="col-2">
+        <div class="bar-container">
+          <div class="bar bar-4-star"></div>
+        </div>
+      </div>
+      <div class="col-3">
+        <div class="rating-total" data-rating-count="<%= result[3] %>"></div>
+      </div>
+      <div class="col-1">
+        <div>3 star</div>
+      </div>
+      <div class="col-2">
+        <div class="bar-container">
+          <div class="bar bar-3-star"></div>
+        </div>
+      </div>
+      <div class="col-3">
+        <div class="rating-total" data-rating-count="<%= result[2] %>"></div>
+      </div>
+      <div class="col-1">
+        <div>2 star</div>
+      </div>
+      <div class="col-2">
+        <div class="bar-container">
+          <div class="bar bar-2-star"></div>
+        </div>
+      </div>
+      <div class="col-3">
+        <div class="rating-total" data-rating-count="<%= result[1] %>"></div>
+      </div>
+      <div class="col-1">
+        <div>1 star</div>
+      </div>
+      <div class="col-2">
+        <div class="bar-container">
+          <div class="bar bar-1-star"></div>
+        </div>
+      </div>
+      <div class="col-3">
+        <div class="rating-total" data-rating-count="<%= result[0] %>"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<style>
+hr {
+  border: 3px solid #f1f1f1;
+}
+
+#content-main {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  color: #333;
+}
+
+.content {
+  width: 600px;
+  margin: 20px auto 0 auto;
+}
+
+.checked {
+  color: #ffa500;
+}
+
+.content-heading {
+  margin-right: 25px;
+  font-size: 25px;
+}
+
+.fa {
+  font-size: 25px;
+}
+
+.active {
+  color: orange;
+}
+
+/* three column layout */
+.col-1, .col-3 {
+  width: 15%;
+  float: left;
+  margin-top: 10px;
+}
+
+.col-2 {
+  width: 70%;
+  float: left;
+  margin-top: 10px;
+}
+
+.col-3 {
+  text-align: right;
+}
+
+/* clear floats after the columns */
+.row::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* bar container */
+.bar-container {
+  width: 100%;
+  background-color: #f1f1f1;
+  text-align: center;
+  color: white;
+}
+
+/* bars */
+.bar {
+  height: 18px;
+}
+
+.bar-5-star {
+  background-color: #4caf50;
+}
+
+.bar-4-star {
+  background-color: #2196f3;
+}
+
+.bar-3-star {
+  background-color: #00bcd4;
+}
+
+.bar-2-star {
+  background-color: #ff9800;
+}
+
+.bar-1-star {
+  background-color: #f44336;
+}
+</style>
+
+
+<script>
+// apply user rating to all displays
+// add star ratings to an array
+var starRating = document.querySelectorAll(".fa-star"),
+  ratingTotal = document.querySelectorAll(".rating-total");
+
+// convert ratingTotal HTMLCollection to array and reverse its order (5 star <-> 1 star)
+var reverseRatingTotal = Array.from(ratingTotal).reverse();
+
+// display initial rating totals
+displayTotals();
+
+// use event listener to record changes to user rating
+starRating.forEach(function(star) {
+  star.addEventListener("click", recordRating);
+})
+
+function recordRating(event) {
+  // use indexOf to identify selected user rating
+  var userRating = Array.from(starRating).indexOf(event.target);
+
+  // define selected rating to adjust display totals
+  var selectedIndex;
+
+  starRating.forEach(function(item, index) {
+    // add or remove .active class based upon selected user rating
+    if (index < userRating + 1) {
+      starRating[index].classList.add("active");
+      selectedIndex = index;
+    } else {
+      starRating[index].classList.remove("active");
+    }
+
+    displayTotals(selectedIndex);
+  });
+}
+
+// display star rating totals from html custom data-
+function displayTotals(selectedIndex) {
+  var barChart = document.querySelectorAll(".bar"),
+    displaySummary = document.querySelectorAll(".summary"),
+    numRatings = 0,
+    numRatingsValue = 0;
+
+  // convert barChart HTMLCollection to array and reverse its order (5 star <-> 1 star)
+  var reverseBarChart = Array.from(barChart).reverse();
+
+  reverseRatingTotal.forEach(function(total, index) {
+    if (index == selectedIndex) {
+      // add selected rating to display total
+      total.innerHTML = (parseInt(total.getAttribute("data-rating-count")) + 1);
+      // adjust selected bar width
+      reverseBarChart[index].style.width = (((parseInt(total.getAttribute("data-rating-count")) + 1) / 20) * 100) + "%";
+    } else {
+      // display unselected totals
+      total.innerHTML = total.getAttribute("data-rating-count");
+      // adjust unselected bar widths
+      reverseBarChart[index].style.width = ((total.getAttribute("data-rating-count") / 20) * 100) + "%";
+    }
+    // count total number and value of ratings
+    numRatings += parseInt(total.innerHTML);
+    numRatingsValue += (parseInt(total.innerHTML) * (index + 1));
+  });
+
+  // display rating average and total
+  ratingsAverage = (numRatingsValue / numRatings).toFixed(2);
+  displaySummary[0].innerHTML = ratingsAverage + " average based on " + numRatings + " reviews.";
+}
+</script>

@@ -1,0 +1,40 @@
+<h4>Your's comment</h4>
+<%= form_for @rating do |f| %>
+  <%= f.hidden_field :product_id, value: @product.id %>
+  <div class="form-outline mb-4">
+    <%= f.text_field :comment, type: "text" , id: "form4Example1" , class: "form-control", placeholder: "Your's comments here" %>
+  </div>
+  <div class="mb-4">
+    <label>
+      <%= f.radio_button :star, "1" %>
+      <span class="icon">★</span>
+    </label>
+    <label>
+      <%= f.radio_button :star, "2" %>
+      <span class="icon">★</span>
+      <span class="icon">★</span>
+    </label>
+    <label>
+      <%= f.radio_button :star, "3" %>
+      <span class="icon">★</span>
+      <span class="icon">★</span>
+      <span class="icon">★</span>
+    </label>
+    <label>
+      <%= f.radio_button :star, "4" %>
+      <span class="icon">★</span>
+      <span class="icon">★</span>
+      <span class="icon">★</span>
+      <span class="icon">★</span>
+    </label>
+    <label>
+      <%= f.radio_button :star, "5" %>
+      <span class="icon">★</span>
+      <span class="icon">★</span>
+      <span class="icon">★</span>
+      <span class="icon">★</span>
+      <span class="icon">★</span>
+    </label>
+  </div>
+  <%= f.submit "Comment", class: "btn btn-primary btn-block mb-4" %>
+<% end %>

@@ -32,6 +32,8 @@ class StaticPagesController < ApplicationController
       session[:recommend] = recommends
       @@count = 1
     end
+
+    @order_details = OrderDetail.this_month.group(:product_id).count.to_a.sort_by(&:last).reverse!.take(4)
   end
 
   def mens

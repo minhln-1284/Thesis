@@ -15,7 +15,7 @@
       <div class="d-flex">
         <%= form_with url: carts_path(id: @product.id), method: :post do |f| %>
           <fieldset>
-            <% if logged_in? %>
+            <%# if logged_in? %>
               <%= f.hidden_field :quantily, value: 1, max: 10, min: Settings.carts.min_quantily %>
               <input
                 type="submit"
@@ -23,12 +23,42 @@
                 value="Add to cart"
                 class="btn btn-outline-dark mt-auto"
               />
-            <% else %>
-              <%= link_to "Add to cart", new_user_session_path, class: "btn btn-outline-dark" %>
-            <% end %>
+            <%# else %>
+              <%#= link_to "Add to cart", new_user_session_path, class: "btn btn-outline-dark" %>
+            <%# end %>
           </fieldset>
         <% end %>
       </div>
+      <br>
+      <% if @ratings.present? %>
+      <div class="mb-1">
+        <% if current_user.present? %>
+          <% check = allow_comment @product %>
+          <% if check %>
+            <%= render "comment_form" %>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="mb-1">
+        <%= render "scorecard", ratings: @ratings %>
+      </div>
+      <div class="card" style="background-color: #faf9f8; padding: 1%;">
+        <span class="heading">Users comments</span>
+          <table class = "table">
+            <thead>
+              <tr>
+                <th><%= "Customer" %></th>
+                <th><%= "Comment" %></th>
+                <th><%= "Rating" %></th>
+              </tr>
+            </thead>
+            <tbody>
+              <%= render partial: "rating" , collection: @ratings.includes([:user]) %>
+            </tbody>
+          </table>
+          <%== pagy_bootstrap_nav(@pagy) %>
+      </div>
+      <% end %>
     </div>
   </div>
 </div>
@@ -55,7 +85,7 @@ desktop/startbootstrap-shop-item-gh-pages/index --> <!-- Footer-->
                     <div class="bbb_viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
                       <%= image_tag product.product_images.first.image.variant(resize_to_fill: [700, 950]), class: "card-img-top" %>
                         <div class="bbb_viewed_content text-center">
-                            <%= number_to_currency(product.price, locale: :vi) %>
+                            <div style="color: black;"><%= number_to_currency(product.price, locale: :vi) %></div>
                             <%= link_to product.name, product_path(product), style: "text-decoration: none; color: black; font-weight: bold;" %>
                         </div>
                         <%= form_with url: carts_path(id: product.id), method: :post do |f| %>

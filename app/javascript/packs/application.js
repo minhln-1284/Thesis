@@ -10,6 +10,7 @@ import 'channels'
 require('jquery')
 import "../stylesheets/application"
 import "bootstrap"
+import "chartkick/chart.js"
 
 Rails.start()
 Turbolinks.start()
