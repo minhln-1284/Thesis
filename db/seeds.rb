@@ -1,7 +1,7 @@
 require 'faker'
 
 count = 1
-300.times do
+450.times do
   user = User.new
   user.email = "user-#{count}@gmail.com"
   user.name = Faker::Name.first_name
@@ -148,7 +148,7 @@ end
 
 orders = Order.all
 orders.each do |order|
-  arr = (1..25).to_a
+  arr = (1..130).to_a
   rand(3..6).times do
     product_id = arr.sample
     quantity = rand(1..3)
