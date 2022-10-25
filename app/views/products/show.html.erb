@@ -39,9 +39,11 @@
           <% end %>
         <% end %>
       </div>
+      <% if @ratings_stats.present? %>
       <div class="mb-1">
-        <%= render "scorecard", ratings: @ratings %>
+        <%= render "scorecard", ratings: @ratings_stats %>
       </div>
+      <% end %>
       <div class="card" style="background-color: #faf9f8; padding: 1%;">
         <span class="heading">Users comments</span>
           <table class = "table">

@@ -39,6 +39,7 @@ count = 1
   shirt_men.name = "Shirt-SM#{count}"
   shirt_men.price = rand(1000000..5000000)
   shirt_men.quantity_in_stock = 500
+  shirt_men.description = Faker::Lorem.paragraph(sentence_count: 3)
   shirt_men.save!
   product_image_sm = shirt_men.product_images.create!
   product_image_sm.image.attach(io: File.open("app/assets/images/DatasetProductImages/Mens/Shirt/#{rand(1..10)}.jpg"), filename: "#{rand(1..10)}.jpg")
@@ -48,6 +49,7 @@ count = 1
   shirt_woman.name = "Shirt-SW#{count}"
   shirt_woman.price = rand(1000000..5000000)
   shirt_woman.quantity_in_stock = 500
+  shirt_woman.description = Faker::Lorem.paragraph(sentence_count: 3)
   shirt_woman.save!
   product_image_sw = shirt_woman.product_images.create!
   product_image_sw.image.attach(io: File.open("app/assets/images/DatasetProductImages/Womans/Shirt/#{rand(1..10)}.jpg"), filename: "#{rand(1..10)}.jpg")
@@ -62,6 +64,7 @@ count = 1
   pants_men.name = "Pants-P#{count}"
   pants_men.price = rand(1000000..5000000)
   pants_men.quantity_in_stock = 500
+  pants_men.description = Faker::Lorem.paragraph(sentence_count: 3)
   pants_men.save!
   product_image_pm = pants_men.product_images.create!
   product_image_pm.image.attach(io: File.open("app/assets/images/DatasetProductImages/Mens/Pants/#{rand(1..10)}.jpg"), filename: "#{rand(1..10)}.jpg")
@@ -71,6 +74,7 @@ count = 1
   pants_woman.name = "Pants-P#{count}"
   pants_woman.price = rand(1000000..5000000)
   pants_woman.quantity_in_stock = 500
+  pants_woman.description = Faker::Lorem.paragraph(sentence_count: 3)
   pants_woman.save!
   product_image_pw = pants_woman.product_images.create!
   product_image_pw.image.attach(io: File.open("app/assets/images/DatasetProductImages/Womans/Pants/#{rand(1..10)}.jpg"), filename: "#{rand(1..10)}.jpg")
@@ -84,6 +88,7 @@ count = 1
   shoes_men.name = "Shoes-S#{count}"
   shoes_men.price = rand(1000000..5000000)
   shoes_men.quantity_in_stock = 500
+  shoes_men.description = Faker::Lorem.paragraph(sentence_count: 3)
   shoes_men.save!
   product_image_pm = shoes_men.product_images.create!
   product_image_pm.image.attach(io: File.open("app/assets/images/DatasetProductImages/Mens/Shoes/#{rand(1..10)}.jpg"), filename: "#{rand(1..10)}.jpg")
@@ -93,6 +98,7 @@ count = 1
   shoes_woman.name = "Shoes-S#{count}"
   shoes_woman.price = rand(1000000..5000000)
   shoes_woman.quantity_in_stock = 500
+  shoes_woman.description = Faker::Lorem.paragraph(sentence_count: 3)
   shoes_woman.save!
   product_image_pw = shoes_woman.product_images.create!
   product_image_pw.image.attach(io: File.open("app/assets/images/DatasetProductImages/Womans/Shoes/#{rand(1..10)}.jpg"), filename: "#{rand(1..10)}.jpg")
@@ -107,6 +113,7 @@ count = 1
   accessories_men.name = "Accessories-A#{count}"
   accessories_men.price = rand(1000000..5000000)
   accessories_men.quantity_in_stock = 500
+  accessories_men.description = Faker::Lorem.paragraph(sentence_count: 3)
   accessories_men.save!
   product_image_pm = accessories_men.product_images.create!
   product_image_pm.image.attach(io: File.open("app/assets/images/DatasetProductImages/Mens/Accessories/#{rand(1..10)}.jpg"), filename: "#{rand(1..10)}.jpg")
@@ -116,6 +123,7 @@ count = 1
   accessories_woman.name = "Accessories-A#{count}"
   accessories_woman.price = rand(1000000..5000000)
   accessories_woman.quantity_in_stock = 500
+  accessories_woman.description = Faker::Lorem.paragraph(sentence_count: 3)
   accessories_woman.save!
   product_image_pw = accessories_woman.product_images.create!
   product_image_pw.image.attach(io: File.open("app/assets/images/DatasetProductImages/Womans/Accessories/#{rand(1..10)}.jpg"), filename: "#{rand(1..10)}.jpg")
@@ -130,6 +138,7 @@ count = 1
   dress_woman.name = "Dress-D#{count}"
   dress_woman.price = rand(1000000..5000000)
   dress_woman.quantity_in_stock = 500
+  dress_woman.description = Faker::Lorem.paragraph(sentence_count: 3)
   dress_woman.save!
   product_image_pw = dress_woman.product_images.create!
   product_image_pw.image.attach(io: File.open("app/assets/images/DatasetProductImages/Womans/Dresses & Skirts/#{rand(1..10)}.jpg"), filename: "#{rand(1..10)}.jpg")
@@ -149,7 +158,7 @@ end
 orders = Order.all
 orders.each do |order|
   arr = (1..130).to_a
-  rand(3..6).times do
+  rand(2..6).times do
     product_id = arr.sample
     quantity = rand(1..3)
     od = order.order_details.new(product_id: product_id, quantity: quantity)
@@ -157,6 +166,9 @@ orders.each do |order|
     price = od.product.price
     od.update(price: price)
     arr.delete(product_id)
+    star = rand(1..5)
+    comment = Faker::Lorem.paragraph(sentence_count: 1)
+    Rating.create!(product_id: product_id, user_id: order.user_id, star: star, comment: comment)
   end
   amount = 0
   order.order_details.each do |od|

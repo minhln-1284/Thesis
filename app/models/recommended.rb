@@ -38,32 +38,32 @@ class Recommended < ApplicationRecord
       h1 << order.products.pluck(:id)
     end
     item_set = Apriori::ItemSet.new(h1)
-    support = 0.1
-    confidence = 0.4
+    support = 0.22
+    confidence = 0.85
     rules = item_set.mine(support, confidence)
     rules.keys.each do |key|
       Recommended.create!(associations: key)
     end
-    # users = User.all
-    # users.each do |user|
-    #   if user.orders.any?
-    #     bought = []
-    #     user.orders.each do |order|
-    #       pids = order.products.pluck(:id)
-    #       bought = (bought + pids).uniq
-    #     end
-    #     recommend = []
-    #     rules.keys.each do |key|
-    #       associations = key.split("=>").map!{|id| id.to_i}
-    #       if bought.include? associations.first and !bought.include? associations.second
-    #         recommend << associations.second
-    #       end
-    #     end
-    #     recommend.uniq!
-    #     if !recommend.empty?
-    #       user.update(recommend: recommend)
-    #     end
-    #   end
-    # end
+    users = User.all
+    users.each do |user|
+      if user.orders.any?
+        bought = []
+        user.orders.each do |order|
+          pids = order.products.pluck(:id)
+          bought = (bought + pids).uniq
+        end
+        recommend = []
+        rules.keys.each do |key|
+          associations = key.split("=>").map!{|id| id.to_i}
+          if bought.include? associations.first and !bought.include? associations.second
+            recommend << associations.second
+          end
+        end
+        recommend.uniq!
+        if !recommend.empty?
+          user.update(recommend: recommend)
+        end
+      end
+    end
   end
 end

@@ -27,7 +27,10 @@ class ProductsController < ApplicationController
     visitor_selection(params[:id])
     @product = Product.find_by(id: params[:id])
     @ratings = Rating.where(product_id: params[:id])
-    @rating = current_user.ratings.build
+    if current_user.present?
+      @rating = current_user.ratings.build
+    end
+    @ratings_stats = @ratings if @ratings.present?
     @pagy, @ratings = pagy @ratings if @ratings.present?
 
     @same_category = @product.category.products.where.not(id: params[:id]).sample(10)

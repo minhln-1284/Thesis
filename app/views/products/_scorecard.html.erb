@@ -218,12 +218,12 @@ function displayTotals(selectedIndex) {
       // add selected rating to display total
       total.innerHTML = (parseInt(total.getAttribute("data-rating-count")) + 1);
       // adjust selected bar width
-      reverseBarChart[index].style.width = (((parseInt(total.getAttribute("data-rating-count")) + 1) / 20) * 100) + "%";
+      reverseBarChart[index].style.width = (((parseInt(total.getAttribute("data-rating-count")) + 1) / "<%= result.max %>") * 100) + "%";
     } else {
       // display unselected totals
       total.innerHTML = total.getAttribute("data-rating-count");
       // adjust unselected bar widths
-      reverseBarChart[index].style.width = ((total.getAttribute("data-rating-count") / 20) * 100) + "%";
+      reverseBarChart[index].style.width = ((total.getAttribute("data-rating-count") / "<%= result.max %>") * 100) + "%";
     }
     // count total number and value of ratings
     numRatings += parseInt(total.innerHTML);
