@@ -2,8 +2,8 @@ class Admin::OrdersController < Admin::BaseController
   before_action :find_order, only: %i(edit update)
 
   def index
-    @orders = Order.this_month.without_deleted.oldest
-    @pagy, @orders2  = pagy(Order.this_month.oldest,
+    @orders = Order.without_deleted.oldest
+    @pagy, @orders2  = pagy(Order.oldest,
                             items: Settings.order.item)
   end
 

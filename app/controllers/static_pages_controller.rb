@@ -19,7 +19,7 @@ class StaticPagesController < ApplicationController
     end
 
     if @@count == 0
-      recommends = checkout_these_product
+      recommends = checkout_these_product 1
       @recommendations = Product.where(id: recommends)
       session[:recommend] = recommends
       @@count += 1
@@ -27,7 +27,7 @@ class StaticPagesController < ApplicationController
       @recommendations = Product.where(id: session[:recommend])
       @@count += 1
     else
-      recommends = checkout_these_product
+      recommends = checkout_these_product 1
       @recommendations = Product.where(id: recommends)
       session[:recommend] = recommends
       @@count = 1

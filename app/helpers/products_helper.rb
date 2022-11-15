@@ -31,20 +31,20 @@ module ProductsHelper
     return arr
   end
 
-  def generate_related(product)
-    associated_products = Recommended.last.associations.split("-")
-    related = product.category.products.all.limit(10)
-    if (associated_products.include? product.id.to_s)
-      associated_products.delete(product.id.to_s)
-      related = related.pluck(:id)
-      associated_products.each do |product|
-        related << product.to_i
-      end
-      @products = Product.where(id: related.uniq)
-      return @products
-    end
-    return related
-  end
+  # def generate_related(product)
+  #   associated_products = Recommended.last.associations.split("-")
+  #   related = product.category.products.all.limit(10)
+  #   if (associated_products.include? product.id.to_s)
+  #     associated_products.delete(product.id.to_s)
+  #     related = related.pluck(:id)
+  #     associated_products.each do |product|
+  #       related << product.to_i
+  #     end
+  #     @products = Product.where(id: related.uniq)
+  #     return @products
+  #   end
+  #   return related
+  # end
 
   def current_visitor_selections
     session[:selection] ||= []
@@ -62,42 +62,56 @@ module ProductsHelper
     return allow
   end
 
-  def checkout_these_product
+  def checkout_these_product(dataset)
     session[:selection] ||= []
     recommend_pids = []
-    if !current_visit.user_id.nil?
-      user = User.find_by(id: current_visit.user_id)
-      if !user.recommend.nil?
-        recommend_pids = eval(user.recommend)
+    if !current_user.nil?
+      if dataset == 1 and !current_user.recommend_1.nil?
+        recommend_pids = eval(current_user.recommend_1)
+      elsif dataset == 2 and !current_user.recommend_2.nil?
+        recommend_pids = eval(current_user.recommend_2)
+      elsif dataset == 3 and !current_user.recommend_3.nil?
+        recommend_pids = eval(current_user.recommend_3)
       end
     end
     if session[:selection].present?
       rules = Recommended.all
       rules.each do |rule|
-        associations = rule.associations.split("=>").map! { |id| id.to_i }
-        left = []
-        left << associations.first
-        check = session[:selection] - left
-        if check != session[:selection]
-          second = []
-          second << associations.second
-          recommend_pids = (recommend_pids + second).uniq
+        if rule.dataset == dataset.to_s
+          associations = rule.associations.split("=>").map! { |id| id.to_i }
+          left = []
+          left << associations.first
+          check = session[:selection] - left
+          if check != session[:selection]
+            second = []
+            second << associations.second
+            recommend_pids = (recommend_pids + second).uniq
+          end
         end
       end
     end
     if session[:selection].present?
       session[:selection].each do |pid|
         products = Product.find_by(id: pid).category.products.sample(2).pluck(:id)
-        recommend_pids = (recommend_pids + products).uniq
+        recommend_pids << products
+        recommend_pids.flatten!
+        recommend_pids.uniq!
+        if recommend_pids.size >= 15
+          break
+        end
       end
     end
     #-----------------------------------------------------------------------------------
-    if recommend_pids.size > 15
-      recommend_pids = recommend_pids.take(15)
+    # if recommend_pids.size > 15
+    #   recommend_pids = recommend_pids.take(15)
+    # end
+    if recommend_pids.size < 15
+      take_num = 15 - recommend_pids.size
+      extras = Product.all.sample(take_num).pluck(:id)
+      recommend_pids << extras
     end
-    if recommend_pids.empty?
-      recommend_pids = Product.all.sample(15).pluck(:id)
-    end
+    recommend_pids.flatten!
+    binding.pry
     return recommend_pids
   end
 end

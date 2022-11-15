@@ -178,7 +178,7 @@ en:
       editing: "Editing order"
       quantity: "Quantity"
       price: "Price"
-      name: "Product list"
+      name: "Product"
       ID: "ID"
       id_field: "ID: "
       details: "Order's details: "

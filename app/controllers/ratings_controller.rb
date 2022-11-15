@@ -6,7 +6,7 @@ class RatingsController < ApplicationController
       redirect_to request.referer
     else
       flash[:danger] = t "static_pages.rating_fail"
-      redirect request.referrer
+      redirect_to request.referrer
     end
   end
 

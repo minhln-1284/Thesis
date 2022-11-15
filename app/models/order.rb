@@ -18,7 +18,7 @@ class Order < ApplicationRecord
   scope :by_user, ->(uid){where user_id: uid}
 
   scope :most_order, (lambda do
-    Order.Delivered.this_month.group(:user_id)
+    Order.Delivered.group(:user_id)
                     .order("count_all DESC").limit(1).count.first.first
   end)
 

@@ -156,12 +156,6 @@ ActiveRecord::Schema.define(version: 2022_10_10_045540) do
     t.index ["user_id"], name: "index_ratings_on_user_id"
   end
 
-  create_table "recommendeds", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "associations"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -178,7 +172,9 @@ ActiveRecord::Schema.define(version: 2022_10_10_045540) do
     t.string "reset_digest"
     t.datetime "reset_sent_at"
     t.string "encrypted_password", default: "", null: false
-    t.string "recommend"
+    t.string "recommend_1"
+    t.string "recommend_2"
+    t.string "recommend_3"
     t.string "reset_password_sent_at"
     t.datetime "reset_password_token"
     t.index ["email"], name: "index_users_on_email", unique: true
