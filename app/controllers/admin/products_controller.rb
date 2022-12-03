@@ -49,7 +49,7 @@ class Admin::ProductsController < Admin::BaseController
 
   private
   def find_product
-    @product = Product.find_by id: params[:id]
+    @product = Product.without_deleted.categorized.find_by id: params[:id]
     return if @product
 
     flash[:danger] = t "flashes.alert_not_found"
@@ -69,10 +69,10 @@ class Admin::ProductsController < Admin::BaseController
 
   def filter_branch filter
     if filter == t("admin.product.filter.uncate")
-      @pagy, @products = pagy(Product.uncategorized,
+      @pagy, @products = pagy(Product.without_deleted.uncategorized,
                               items: Settings.product.item)
     else
-      @pagy, @products = pagy(Product.newest,
+      @pagy, @products = pagy(Product.without_deleted.newest,
                               items: Settings.product.item)
     end
   end

@@ -1,25 +1,24 @@
 class CategoriesController < ApplicationController
   def show
-    @category = Category.find_by(id: params[:id])
-    @pagy, @products = pagy @category.products if @category.present?
+    filter_branch params[:filter]
   end
 
-  def filter
-    if params[:filter] == t("static_pages.newest")
-      @pagy, @products = pagy Product
-                         .find_category_id(params[:id]).newest
-    else
-      filter_increase(params[:filter], params[:id])
-    end
-  end
+  private
 
-  def filter_increase filter, id
-    if filter == t("static_pages.price_increase")
-      @pagy, @products = pagy Product
-                         .find_category_id(id).order_by_price(:asc)
+  def filter_branch(filter)
+    case filter
+    when "Oldest"
+      @pagy, @products = pagy(Product.without_deleted.categorized.by_category(params[:id]).oldest,
+                              items: Settings.product.item)
+    when "Most expensive"
+      @pagy, @products = pagy(Product.without_deleted.categorized.by_category(params[:id]).most_expensive,
+                              items: Settings.product.item)
+    when "Cheapest"
+      @pagy, @products = pagy(Product.without_deleted.categorized.by_category(params[:id]).cheapest,
+                              items: Settings.product.item)
     else
-      @pagy, @products = pagy Product
-                         .find_category_id(id).order_by_price(:desc)
+      @pagy, @products = pagy(Product.without_deleted.categorized.by_category(params[:id]).newest,
+                              items: Settings.product.item)
     end
   end
 end

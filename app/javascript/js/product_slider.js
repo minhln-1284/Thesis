@@ -1,4 +1,4 @@
-$(document).on("turbolinks:load", function () {
+$(document).on("turbolinks:load",function () {
   if ($(".bbb_viewed_slider").length) {
     var viewedSlider = $(".bbb_viewed_slider");
 

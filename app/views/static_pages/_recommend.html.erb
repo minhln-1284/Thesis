@@ -1,51 +1,53 @@
 <div class="bbb_viewed">
-    <div class="container">
-        <div class="row">
-            <div class="col">
-               <div class="bbb_main_container">
-                <div class="bbb_viewed_title_container">
-                    <h3>Recommendations</h3>
-                    <div class="bbb_viewed_nav_container">
-                        <div class="bbb_viewed_nav bbb_viewed_prev"><i class="fas fa-chevron-left"></i></div>
-                        <div class="bbb_viewed_nav bbb_viewed_next"><i class="fas fa-chevron-right"></i></div>
-                    </div>
-                </div>
-                <div class="bbb_viewed_slider_container">
-                    <div class="owl-carousel owl-theme bbb_viewed_slider">
-      <% @recommendations.each do |product|%>
-
-                        <div class="owl-item">
-                            <div class="bbb_viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
-            <%= image_tag product.product_images.first.image.variant(resize_to_fill: [700, 950]), class: "card-img-top"%>
-
-                                <div class="bbb_viewed_content text-center">
-                                    <%= number_to_currency(product.price, locale: :vi) %>
-                                    <%= link_to product.name, product_path(product), style:"text-decoration: none; color: black; font-weight: bold;" %>
-                                </div>
-
-                                    <%= form_with url: carts_path(id: product.id ), method: :post do |f| %>
-                  <fieldset>
-                    <%# if logged_in? %>
-                      <%= f.hidden_field :quantily, value: 1, max: 10, min: Settings.carts.min_quantily %>
-                      <input
-                        type="submit"
-                        name="submit"
-                        value="Add to cart"
-                        class="btn btn-outline-dark mt-auto"/>
-                    <%# else %>
-                      <%#= link_to "Add to cart", new_user_session_path, class: "btn btn-outline-dark" %>
-                    <%# end %>
-                  </fieldset>
-                <% end %>
-
-                            </div>
-                        </div>
-<% end %>
-                    </div>
-                </div>
-               </div>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="bbb_main_container">
+        <div class="bbb_viewed_title_container">
+            <h3>Recommendations</h3>
+            <div class="bbb_viewed_nav_container">
+                <div class="bbb_viewed_nav bbb_viewed_prev"><i class="fas fa-chevron-left"></i></div>
+                <div class="bbb_viewed_nav bbb_viewed_next"><i class="fas fa-chevron-right"></i></div>
             </div>
         </div>
+        <div class="bbb_viewed_slider_container">
+            <div class="owl-carousel owl-theme bbb_viewed_slider">
+                <% @recommendations.each do |product|%>
+                  <% begin %>
+                    <% if product.present? %>
+                        <div class="owl-item">
+                        <div class="bbb_viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
+                            <%= image_tag product.product_images.first.image.variant(resize_to_fill: [700, 950]), class: "card-img-top"%>
+                                <div class="bbb_viewed_content text-center">
+                                    <%= number_to_currency(product.price, locale: :vi) %>
+                                    <%= link_to product.name, product_path(product), style:"text-decoration: none; color: black; font-weight: bold; font-size: 0.95em;" %>
+                                </div>
+                                <%= form_with url: carts_path(id: product.id ), method: :post do |f| %>
+                                    <fieldset>
+                                    <%# if logged_in? %>
+                                    <%= f.hidden_field :quantily, value: 1, max: 10, min: Settings.carts.min_quantily %>
+                                    <input
+                                        type="submit"
+                                        name="submit"
+                                        value="Add to cart"
+                                        class="btn btn-outline-dark mt-auto"/>
+                                    <%# else %>
+                                    <%#= link_to "Add to cart", new_user_session_path, class: "btn btn-outline-dark" %>
+                                    <%# end %>
+                                    </fieldset>
+                                <% end %>
+                            </div>
+                        </div>
+                    <% end %>
+                  <% rescue %>
+                    <% next %>
+                  <% end %>
+                <% end %>
+            </div>
+        </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
 <br><br><br>

@@ -4,7 +4,7 @@ class ProductsController < ApplicationController
   before_action :current_visitor_selections
 
   def index
-    @q = Product.ransack(params[:q])
+    @q = Product.without_deleted.categorized.ransack(params[:q])
     unless !@q.result.empty?
       flash[:danger] = "Can't find what you look for"
       redirect_to root_path
@@ -14,27 +14,28 @@ class ProductsController < ApplicationController
   end
 
   def mens
-    @search = Product.mens.ransack(params[:q])
+    @search = Product.without_deleted.categorized.mens.ransack(params[:q])
     @pagy, @products = pagy @search.result
   end
 
   def womans
-    @search = Product.womans.ransack(params[:q])
+    @search = Product.without_deleted.categorized.womans.ransack(params[:q])
     @pagy, @products = pagy @search.result
   end
 
   def show
     visitor_selection(params[:id])
-    @product = Product.find_by(id: params[:id])
+    @product = Product.without_deleted.categorized.find_by(id: params[:id])
     @ratings = Rating.where(product_id: params[:id])
     if current_user.present?
       @rating = current_user.ratings.build
     end
-    @ratings_stats = @ratings if @ratings.present?
-    @pagy, @ratings = pagy @ratings if @ratings.present?
+    if @product.present?
+      @ratings_stats = @ratings if @ratings.present?
+      @pagy, @ratings = pagy @ratings if @ratings.present?
 
-    @same_category = @product.category.products.where.not(id: params[:id]).sample(10)
-
+      @same_category = @product.category.products.where.not(id: params[:id]).sample(10)
+    end
     return if @product.present?
 
     flash[:danger] = t "static_pages.product_not_found"
@@ -43,7 +44,7 @@ class ProductsController < ApplicationController
 
   def result
     @name = params[:name]
-    @pagy, @products = pagy Product.by_name params[:name]
+    @pagy, @products = pagy Product.without_deleted.categorized.by_name params[:name]
   end
 
   def all_product(category_id)

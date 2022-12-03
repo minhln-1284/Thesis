@@ -1,9 +1,10 @@
 class Product < ApplicationRecord
   belongs_to :category, optional: true
   has_many :ratings, dependent: :destroy
-  has_many :order_details, dependent: :destroy
+  has_many :order_details
   has_many :orders, through: :order_details
   has_many :product_images, dependent: :destroy, inverse_of: :product
+  acts_as_paranoid without_default_scope: true
 
   accepts_nested_attributes_for :product_images, allow_destroy: true
 
@@ -25,6 +26,10 @@ class Product < ApplicationRecord
   scope :oldest, ->{order created_at: :asc}
   scope :by_ids, ->(ids){where id: ids}
   scope :uncategorized, ->{where category_id: nil}
+  scope :by_category, ->(category_id){where category_id: category_id}
+  scope :cheapest, ->{order price: :asc}
+  scope :most_expensive, ->{order price: :desc}
+  scope :categorized, ->{where.not(category_id: nil)}
 
   def find_root_category parent_path
     arr = parent_path.split("/")

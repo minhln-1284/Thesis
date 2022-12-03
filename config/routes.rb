@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     get "/contact", to: "static_pages#contact"
     get "/mens", to: "products#mens"
     get "/womans", to: "products#womans"
+    get "sort", to: "categories#category_sort"
     devise_for :users
     resources :users, except: :destroy
     resources :account_activations, only: %i(edit create)

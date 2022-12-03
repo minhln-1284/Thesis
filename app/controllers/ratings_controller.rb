@@ -11,7 +11,7 @@ class RatingsController < ApplicationController
   end
 
   def show
-    @product = Product.find_by(id: params[:id])
+    @product = Product.without_deleted.categorized.find_by(id: params[:id])
   end
   private
 

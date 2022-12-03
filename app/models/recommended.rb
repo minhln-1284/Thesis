@@ -38,7 +38,6 @@ class Recommended < Primary2
     Order.all.each do |order|
       h1 << order.products.pluck(:id)
     end
-    binding.pry
     item_set = Apriori::ItemSet.new(h1)
     support = 0.077
     confidence = 0.6

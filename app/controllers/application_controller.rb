@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   end
 
   def search_bar
-    @q = Product.ransack(params[:q])
+    @q = Product.without_deleted.categorized.ransack(params[:q])
   end
 
   def configure_permitted_parameters

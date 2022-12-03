@@ -31,21 +31,6 @@ module ProductsHelper
     return arr
   end
 
-  # def generate_related(product)
-  #   associated_products = Recommended.last.associations.split("-")
-  #   related = product.category.products.all.limit(10)
-  #   if (associated_products.include? product.id.to_s)
-  #     associated_products.delete(product.id.to_s)
-  #     related = related.pluck(:id)
-  #     associated_products.each do |product|
-  #       related << product.to_i
-  #     end
-  #     @products = Product.where(id: related.uniq)
-  #     return @products
-  #   end
-  #   return related
-  # end
-
   def current_visitor_selections
     session[:selection] ||= []
     @selections = session[:selection]
@@ -92,7 +77,7 @@ module ProductsHelper
     end
     if session[:selection].present?
       session[:selection].each do |pid|
-        products = Product.find_by(id: pid).category.products.sample(2).pluck(:id)
+        products = Product.categorized.without_deleted.find_by(id: pid).category.products.sample(2).pluck(:id)
         recommend_pids << products
         recommend_pids.flatten!
         recommend_pids.uniq!
@@ -107,11 +92,30 @@ module ProductsHelper
     # end
     if recommend_pids.size < 15
       take_num = 15 - recommend_pids.size
-      extras = Product.all.sample(take_num).pluck(:id)
+      extras = Product.categorized.without_deleted.sample(take_num).pluck(:id)
       recommend_pids << extras
     end
     recommend_pids.flatten!
-    binding.pry
     return recommend_pids
+  end
+
+  def categories_of_woman
+    cate_w = []
+    Category.all.each do |cate|
+      if cate.parent_path.present?
+        if cate.parent_path.split("/").second.to_i == 2
+          cate_w << cate
+        end
+      end
+    end
+    return cate_w
+  end
+
+  def page_path current_product
+    page_path = ["Homepage"]
+    product_category = current_product.category.id
+    parent_category = current_product.category.category.name
+    page_path << parent_category << product_category
+    return page_path
   end
 end

@@ -6,7 +6,7 @@ module Admin::ApplicationHelper
       newkey = user.nil? ? "None" : user.name
       h1[newkey] = value
     end
-    h1
+    h1.sort_by {|_key, value| value}.reverse.take(10).to_h
   end
 
   def bar_chart_product products

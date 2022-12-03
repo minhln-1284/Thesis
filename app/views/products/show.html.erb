@@ -1,6 +1,27 @@
+<!-- Page path -->
+<div class="container px-4 px-lg-5">
+  <% paths = page_path @product %>
+  <% paths.each do |path| %>
+    <% if path == "Homepage" %>
+      <%= link_to "Homepage", root_path, style: "text-decoration: none; color: black;" %>
+      <%= ">" %>
+    <% elsif path == paths.last%>
+      <%= ">" %>
+      <% category = Category.find(path) %>
+      <%= link_to "#{category.name}", category_path(category), style: "text-decoration: none; color: black;" %>
+    <% else %>
+    <% if path == "Mens" %>
+        <%= link_to "Mens", mens_path, style: "text-decoration: none; color: black;" %>
+      <% else %>
+        <%= link_to "Womans", womans_path, style: "text-decoration: none; color: black;" %>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
 <!-- Product section-->
+<% page_path @product %>
 <div class="container px-4 px-lg-5 my-5">
-  <div class="row gx-4 gx-lg-5 align-items-center">
+  <div class="row gx-4 gx-lg-5">
     <div class="col-md-6">
       <%= render "image", product: @product %>
     </div>
@@ -83,6 +104,7 @@ desktop/startbootstrap-shop-item-gh-pages/index --> <!-- Footer-->
           <div class="bbb_viewed_slider_container">
               <div class="owl-carousel owl-theme bbb_viewed_slider">
                 <% @same_category.each do |product| %>
+                <% begin %>
                   <div class="owl-item">
                     <div class="bbb_viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
                       <%= image_tag product.product_images.first.image.variant(resize_to_fill: [700, 950]), class: "card-img-top" %>
@@ -107,6 +129,9 @@ desktop/startbootstrap-shop-item-gh-pages/index --> <!-- Footer-->
                       </div>
                     </div>
                   <% end %>
+                <% rescue %>
+                  <% next %>
+                <% end %>
                 </div>
               </div>
           </div>

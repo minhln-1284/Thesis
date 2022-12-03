@@ -1,7 +1,7 @@
 class CartsController < ApplicationController
   #before_action :authenticate_user!, only: %i(index create show)
   before_action :current_cart
-  before_action :load_product
+  before_action :load_product, only: %i(update create)
 
   def index; end
 
@@ -38,7 +38,7 @@ class CartsController < ApplicationController
   private
 
   def load_product
-    @product = Product.find_by id: params[:id]
+    @product = Product.without_deleted.categorized.find_by id: params[:id]
     return if @product
 
     flash[:danger] = t ".no_product"

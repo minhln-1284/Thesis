@@ -1,0 +1,8 @@
+<%= form_tag(category_path, method: "get") do %>
+
+      <%= select_tag "filter" , options_for_select([
+                "Newest", "Oldest", "Cheapest", "Most expensive" ],
+                {:include_blank => t("admin.product.filter.select")}), class: "form-select",
+                onchange: "this.form.submit();" %>
+      <%#= submit_tag t("submit"), class: "btn btn-primary", style: "display: inline;" %>
+<% end %>

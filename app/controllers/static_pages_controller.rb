@@ -20,19 +20,19 @@ class StaticPagesController < ApplicationController
 
     if @@count == 0
       recommends = checkout_these_product 1
-      @recommendations = Product.where(id: recommends)
+      @recommendations = get_product_array(recommends)
       session[:recommend] = recommends
       @@count += 1
     elsif @@count < 3
-      @recommendations = Product.where(id: session[:recommend])
+      @recommendations = get_product_array(session[:recommend])
       @@count += 1
     else
       recommends = checkout_these_product 1
-      @recommendations = Product.where(id: recommends)
+      @recommendations = get_product_array(recommends)
       session[:recommend] = recommends
       @@count = 1
     end
-
+    @best_sellings = best_sellings
     @order_details = OrderDetail.this_month.group(:product_id).count.to_a.sort_by(&:last).reverse!.take(4)
   end
 

@@ -4,10 +4,13 @@
     <%= link_to root_path, class: "navbar-brand" do %>
       <%= image_tag "website_logo.png", style: "height:60px; width:150px"%>
     <% end %>
+    <button class="btn btn-outline-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+      Category
+    </button>
     <!-- Search bar -->
     <%= search_form_for @q, url: products_path, class: "d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search",
                         html: { method: :get } do |f| %>
-      <div class="input-group">
+      <div class="input-group" style="padding-left: 3%;">
         <%= f.search_field :name_cont, class: "form-control bg-light border-0 small", style: "background-color: #faf9f8;", placeholder: "Search for..."%>
         <div class="input-group-append">
           <%= button_tag(type: "submit", class: "btn btn-outline-info") do %>
@@ -38,3 +41,30 @@
     </div>
   </div>
 </nav>
+
+<div class="collapse" id="collapseExample">
+  <div class="card card-body">
+    <div class="row">
+      <div class="col" style = "text-align: center;">
+        <h3>Mens</h3>
+        <% Category.all.includes([:category]).each do |category| %>
+          <% if category.category.present? %>
+            <% if category.category.id == 1 %>
+              <%= link_to category.name, category_path(category), style: "color: black;" %>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="col" style = "text-align: center;">
+        <h3>Womans</h3>
+        <% Category.all.each do |category| %>
+          <% if category.category.present? %>
+            <% if category.category.id == 2 %>
+              <%= link_to category.name, category_path(category), style: "color: black;"%>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

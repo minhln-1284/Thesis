@@ -1,8 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-2">
-      <div class="w3-leftbar w3-border-blue">
-        <div class="input-group mb-3 container">
+        <div class="input-group mb-3">
           <%= search_form_for @search, url: mens_path, html: { method: :get } do |f| %>
             <%= f.search_field :name_cont, class: "form-control" %>
             <div>
@@ -35,7 +34,6 @@
           <% end %>
         </div>
       </div>
-    </div>
     <div class="col-sm-10">
       <div class="container">
         <div class="row">

@@ -76,6 +76,11 @@
       <div style = "padding-top: 3%;">
         <%= link_to "My orders list", orders_path, class: "btn btn-outline-dark" %>
       </div>
+      <% if current_user.present? and current_user.Admin? %>
+        <div style = "padding-top: 3%;">
+          <%= link_to "Admin mangement", admin_root_path, class: "btn btn-primary" %>
+        </div>
+      <% end %>
     </div>
 
   </div>

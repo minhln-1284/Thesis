@@ -81,29 +81,28 @@
     </div>
 
     <!-- Best sellings -->
-    <% unless @order_details.nil? %>
+    <% unless @best_sellings.nil? %>
     <div class="container px-4 px-lg-5 mt-5">
     <h1>Best sellings</h1>
       <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-        <% @order_details.each do |item|%>
-          <% p = Product.find_by(id: item.first) %>
+        <% @best_sellings.each do |item|%>
           <div class="col mb-5">
           <div class="zoom">
             <div class="card h-100">
               <!-- Product image-->
 
-              <%= image_tag p.product_images.first.image.variant(resize_to_fill: [200, 200]), class: "card-img-top" %>
+              <%= image_tag item.product_images.first.image.variant(resize_to_fill: [200, 200]), class: "card-img-top" %>
 
               <!-- Product details-->
               <div class="card-body p-4">
                 <div class="text-center">
                   <!-- Product name-->
-                  <h5 class="fw-bolder"><%= link_to p.name, product_path(p), style:"text-decoration: none; color: black;" %></h5>
-                  <%= number_to_currency(p.price, locale: :vi) %>
+                  <h5 class="fw-bolder"><%= link_to item.name, product_path(item), style:"text-decoration: none; color: black;" %></h5>
+                  <%= number_to_currency(item.price, locale: :vi) %>
 
               <!-- Product actions-->
               <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <%= form_with url: carts_path(id: p.id ), method: :post do |f| %>
+                <%= form_with url: carts_path(id: item.id ), method: :post do |f| %>
                   <fieldset>
                     <%# if logged_in? %>
                       <%= f.hidden_field :quantily, value: 1, max: 10, min: Settings.carts.min_quantily %>
@@ -127,7 +126,6 @@
       </div>
     </div>
     <% end %>
-
     <div class="container px-4 px-lg-5 mt-5">
       <% if !@recommendations.nil? %>
         <%= render partial: "recommend",  recommendations: @recommendations %>
