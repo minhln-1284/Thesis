@@ -21,27 +21,29 @@
       <div class="col mb-5">
         <div class="zoom">
           <div class="card h-100">
-            <!-- Product image-->
-            <%= image_tag p.product_images.first.image.variant(resize_to_fill: [200, 200]), class: "card-img-top" %>
-            <!-- Product details-->
-            <div class="card-body p-4">
-              <div class="text-center">
-                <!-- Product name-->
-                <h5 class="fw-bolder">
-                  <%= link_to p.name, product_path(p), style: "text-decoration: none; color: black;" %>
-                </h5>
-                <%= number_to_currency(p.price) %>
+            <div class="align-items-center justify-content-center text-center">
+              <!-- Product image-->
+              <%= image_tag p.product_images.first.image.variant(resize_to_fill: [200, 200]), class: "card-img-top" %>
+              <!-- Product details-->
+              <div class="card-body p-4">
+                <div class="text-center">
+                  <!-- Product name-->
+                  <h5 class="fw-bolder">
+                    <%= link_to p.name, product_path(p), style: "text-decoration: none; color: black;" %>
+                  </h5>
+                  <%= number_to_currency(p.price) %>
+                </div>
               </div>
-            </div>
-            <!-- Product actions-->
-            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-              <%= form_with url: carts_path(id: p.id ), method: :post do |f| %>
-                <fieldset>
+              <!-- Product actions-->
+              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                <%= form_with url: carts_path(id: p.id ), method: :post do |f| %>
+                  <fieldset>
                     <%= f.hidden_field :quantily, value: 1, max: 10, min: Settings.carts.min_quantily %>
                     <input type="submit" name="submit" value="Add to cart"
                                 class="btn btn-outline-dark mt-auto" />
-                </fieldset>
-              <% end %>
+                  </fieldset>
+                <% end %>
+              </div>
             </div>
           </div>
         </div>

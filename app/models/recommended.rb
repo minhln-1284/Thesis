@@ -39,7 +39,7 @@ class Recommended < Primary2
       h1 << order.products.pluck(:id)
     end
     item_set = Apriori::ItemSet.new(h1)
-    support = 0.077
+    support = 0.05
     confidence = 0.6
     rules = item_set.mine(support, confidence)
     rules.keys.each do |key|

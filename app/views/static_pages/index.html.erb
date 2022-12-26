@@ -127,8 +127,8 @@
     </div>
     <% end %>
     <div class="container px-4 px-lg-5 mt-5">
-      <% if !@recommendations.nil? %>
-        <%= render partial: "recommend",  recommendations: @recommendations %>
+      <% if !$recommendations.nil? %>
+        <%= render partial: "recommend",  recommendations: $recommendations %>
       <% end %>
       <!-- For moms -->
       <div style="padding: 0% 2% 6% 2%;">

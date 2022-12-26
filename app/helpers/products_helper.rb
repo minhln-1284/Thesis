@@ -59,6 +59,7 @@ module ProductsHelper
         recommend_pids = eval(current_user.recommend_3)
       end
     end
+
     if session[:selection].present?
       rules = Recommended.all
       rules.each do |rule|
@@ -75,6 +76,7 @@ module ProductsHelper
         end
       end
     end
+
     if session[:selection].present?
       session[:selection].each do |pid|
         products = Product.categorized.without_deleted.find_by(id: pid).category.products.sample(2).pluck(:id)

@@ -22,9 +22,6 @@ module StaticPagesHelper
   end
 
   def get_product_array(recommends)
-    if recommends.nil?
-      recommends = checkout_these_product 1
-    end
     product_arr = []
     recommends.each do |rec|
       begin

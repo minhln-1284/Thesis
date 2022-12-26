@@ -56,7 +56,7 @@ class ProductsController < ApplicationController
     session[:selection] ||= []
 
     if !session[:selection].include? pid.to_i
-      session[:selection] << pid.to_i
+      session[:selection].unshift pid.to_i
     end
   end
 end

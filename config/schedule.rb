@@ -27,6 +27,7 @@ env :PATH, ENV['PATH']
 
 set :output, './log/cron.log'
 
-every '0 0 L * *' do
+every 1.minute do
   rake "monthly_summary"
 end
+# rake "find_association_rules"

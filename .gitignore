@@ -91,4 +91,4 @@ config/environments/*.local.yml
 # Ignore application configuration
 /config/application.yml
 /config/database.yml
-app/assets/images/
+app/assets/images/*

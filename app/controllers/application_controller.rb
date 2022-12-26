@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   include Pagy::Backend
   include SessionsHelper
+  include ProductsHelper
+  include StaticPagesHelper
   include CartsHelper
   protect_from_forgery with: :exception
   before_action :set_locale, :track_action
@@ -23,6 +25,8 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for resource
+    recommends = checkout_these_product 2
+    $recommendations = get_product_array(recommends)
     if current_user.Admin?
       (stored_location_for(resource) || admin_root_path)
     else

@@ -1,7 +1,7 @@
 require 'faker'
 
 count = 1
-750.times do
+700.times do
   user = User.new
   user.email = "user-#{count}@gmail.com"
   user.name = Faker::Name.first_name
@@ -33,7 +33,7 @@ woman.categories.create!(name: "Accessories")
 woman.categories.create!(name: "Dresses & Skirts")
 
 count = 1
-68.times do
+66.times do
   men = Category.find_by(id: 3)
   shirt_men = men.products.new
   shirt_men.name = "Shirt-SM#{count}"
@@ -58,10 +58,10 @@ count = 1
 end
 
 count = 1
-68.times do
+66.times do
   men = Category.find_by(id: 5)
   pants_men = men.products.new
-  pants_men.name = "Pants-P#{count}"
+  pants_men.name = "Pants-PM#{count}"
   pants_men.price = rand(1000000..5000000)
   pants_men.quantity_in_stock = 500
   pants_men.description = Faker::Lorem.paragraph(sentence_count: 3)
@@ -71,7 +71,7 @@ count = 1
 
   woman = Category.find_by(id: 6)
   pants_woman = woman.products.new
-  pants_woman.name = "Pants-P#{count}"
+  pants_woman.name = "Pants-PW#{count}"
   pants_woman.price = rand(1000000..5000000)
   pants_woman.quantity_in_stock = 500
   pants_woman.description = Faker::Lorem.paragraph(sentence_count: 3)
@@ -82,10 +82,10 @@ count = 1
 end
 
 count = 1
-68.times do
+66.times do
   men = Category.find_by(id: 7)
   shoes_men = men.products.new
-  shoes_men.name = "Shoes-S#{count}"
+  shoes_men.name = "Shoes-SM#{count}"
   shoes_men.price = rand(1000000..5000000)
   shoes_men.quantity_in_stock = 500
   shoes_men.description = Faker::Lorem.paragraph(sentence_count: 3)
@@ -95,7 +95,7 @@ count = 1
 
   woman = Category.find_by(id: 8)
   shoes_woman = woman.products.new
-  shoes_woman.name = "Shoes-S#{count}"
+  shoes_woman.name = "Shoes-SW#{count}"
   shoes_woman.price = rand(1000000..5000000)
   shoes_woman.quantity_in_stock = 500
   shoes_woman.description = Faker::Lorem.paragraph(sentence_count: 3)
@@ -107,10 +107,10 @@ count = 1
 end
 
 count = 1
-68.times do
+66.times do
   men = Category.find_by(id: 9)
   accessories_men = men.products.new
-  accessories_men.name = "Accessories-A#{count}"
+  accessories_men.name = "Accessories-AM#{count}"
   accessories_men.price = rand(1000000..5000000)
   accessories_men.quantity_in_stock = 500
   accessories_men.description = Faker::Lorem.paragraph(sentence_count: 3)
@@ -120,7 +120,7 @@ count = 1
 
   woman = Category.find_by(id: 10)
   accessories_woman = woman.products.new
-  accessories_woman.name = "Accessories-A#{count}"
+  accessories_woman.name = "Accessories-AW#{count}"
   accessories_woman.price = rand(1000000..5000000)
   accessories_woman.quantity_in_stock = 500
   accessories_woman.description = Faker::Lorem.paragraph(sentence_count: 3)
@@ -132,7 +132,7 @@ count = 1
 end
 
 count = 1
-68.times do
+66.times do
   woman = Category.find_by(id: 11)
   dress_woman = woman.products.new
   dress_woman.name = "Dress-D#{count}"
@@ -157,7 +157,7 @@ end
 
 orders = Order.all
 orders.each do |order|
-  arr = (1..612).to_a
+  arr = (1..594).to_a
   rand(2..6).times do
     product_id = arr.sample
     quantity = rand(1..3)

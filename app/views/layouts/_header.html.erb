@@ -37,7 +37,7 @@
         <%= link_to icon("fa-solid", "user"), edit_user_registration_path, style: "padding-left: 1%; color: black;" %>
       <% else %>
         <%= link_to "Log in", new_user_session_path, style: "padding-left: 2%; color: black;" %>
-      <% end %>
+    <% end %>
     </div>
   </div>
 </nav>
@@ -46,21 +46,21 @@
   <div class="card card-body">
     <div class="row">
       <div class="col" style = "text-align: center;">
-        <h3>Mens</h3>
+        <h3><%= link_to "Men", mens_path, class: "btn btn-dark" %></h3>
         <% Category.all.includes([:category]).each do |category| %>
           <% if category.category.present? %>
             <% if category.category.id == 1 %>
-              <%= link_to category.name, category_path(category), style: "color: black;" %>
+              <%= link_to category.name, category_path(category), style: "color: black;", class: "btn btn-light" %>
             <% end %>
           <% end %>
         <% end %>
       </div>
       <div class="col" style = "text-align: center;">
-        <h3>Womans</h3>
+        <h3><%= link_to "Woman", womans_path,  class: "btn btn-dark"%></h3>
         <% Category.all.each do |category| %>
           <% if category.category.present? %>
             <% if category.category.id == 2 %>
-              <%= link_to category.name, category_path(category), style: "color: black;"%>
+              <%= link_to category.name, category_path(category), style: "color: black;", class: "btn btn-light"%>
             <% end %>
           <% end %>
         <% end %>

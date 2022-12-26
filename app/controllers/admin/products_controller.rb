@@ -3,7 +3,7 @@ class Admin::ProductsController < Admin::BaseController
   before_action :get_categories, only: %i(new edit show update index)
 
   def index
-    filter_branch params[:filter]
+    filter_branch params
   end
 
   def show
@@ -67,10 +67,13 @@ class Admin::ProductsController < Admin::BaseController
     @categories = Category.all
   end
 
-  def filter_branch filter
-    if filter == t("admin.product.filter.uncate")
+  def filter_branch params
+    if params[:filter] == t("admin.product.filter.uncate")
       @pagy, @products = pagy(Product.without_deleted.uncategorized,
                               items: Settings.product.item)
+    elsif params[:name].present?
+      @pagy, @products = pagy(Product.without_deleted.where("name like ?", "%#{params[:name]}%"),
+        items: Settings.product.item)
     else
       @pagy, @products = pagy(Product.without_deleted.newest,
                               items: Settings.product.item)

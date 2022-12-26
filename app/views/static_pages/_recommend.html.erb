@@ -12,7 +12,7 @@
         </div>
         <div class="bbb_viewed_slider_container">
             <div class="owl-carousel owl-theme bbb_viewed_slider">
-                <% @recommendations.each do |product|%>
+                <% $recommendations.each do |product|%>
                   <% begin %>
                     <% if product.present? %>
                         <div class="owl-item">

@@ -1,14 +1,15 @@
 class StaticPagesController < ApplicationController
   include StaticPagesHelper
   include ProductsHelper
-  @@count = 0
-  @@recommendations
+  $count = 0
+  $check = 0
+  $recommendations
   @@most_viewed
 
   def index
     @banners = Banner.all
 
-    if @@count == 0
+    if $check == 0
       @@most_viewed = Recommended.most_viewed
       if @@most_viewed.nil?
         @@most_viewed = Product.sample(4)
@@ -17,21 +18,19 @@ class StaticPagesController < ApplicationController
     else
       @products = @@most_viewed.take(4)
     end
+    $check = 1
 
-    if @@count == 0
-      recommends = checkout_these_product 1
-      @recommendations = get_product_array(recommends)
-      session[:recommend] = recommends
-      @@count += 1
-    elsif @@count < 3
-      @recommendations = get_product_array(session[:recommend])
-      @@count += 1
-    else
-      recommends = checkout_these_product 1
-      @recommendations = get_product_array(recommends)
-      session[:recommend] = recommends
-      @@count = 1
+    if $count == 0
+      recommends = checkout_these_product 2
+      $recommendations = get_product_array(recommends)
     end
+
+    if $count < 2
+      $count += 1
+    else
+      $count = 0
+    end
+
     @best_sellings = best_sellings
     @order_details = OrderDetail.this_month.group(:product_id).count.to_a.sort_by(&:last).reverse!.take(4)
   end
